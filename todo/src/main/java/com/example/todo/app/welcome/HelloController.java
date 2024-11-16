@@ -22,8 +22,8 @@ public class HelloController {
     /**
      * Simply selects the home view to render by returning its name.
      */
-    @GetMapping(value = "/")
-    public String home(Locale locale, Model model) {
+    @GetMapping(value = "/sample")
+    public String sample(Locale locale, Model model) {
         logger.info("Welcome home! The client locale is {}.", locale);
 
         Date date = new Date();
