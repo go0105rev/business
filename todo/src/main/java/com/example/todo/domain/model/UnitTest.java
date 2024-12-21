@@ -1,34 +1,25 @@
 package com.example.todo.domain.model;
 
+import java.io.InputStream;
 import java.util.Date;
 
 public class UnitTest {
 
-    private long scope;
-    
-    private int ques;
-    
     private String userId;
-    
-    private String sourceNum;
-    
+
+    private String quesNum;
+
+    private long version;
+
+    private InputStream source;
+
     private Date saveTime;
 
-    public long getScope() {
-        return scope;
-    }
+    private long size;
 
-    public void setScope(long scope) {
-        this.scope = scope;
-    }
+    private long duration;
 
-    public int getQues() {
-        return ques;
-    }
-
-    public void setQues(int ques) {
-        this.ques = ques;
-    }
+    private long testFlg;
 
     public String getUserId() {
         return userId;
@@ -38,12 +29,28 @@ public class UnitTest {
         this.userId = userId;
     }
 
-    public String getSourceNum() {
-        return sourceNum;
+    public String getQuesNum() {
+        return quesNum;
     }
 
-    public void setSourceNum(String sourceNum) {
-        this.sourceNum = sourceNum;
+    public void setQuesNum(String quesNum) {
+        this.quesNum = quesNum;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
+    }
+
+    public InputStream getSource() {
+        return source;
+    }
+
+    public void setSource(InputStream source) {
+        this.source = source;
     }
 
     public Date getSaveTime() {
@@ -53,6 +60,29 @@ public class UnitTest {
     public void setSaveTime(Date saveTime) {
         this.saveTime = saveTime;
     }
-    
-    
+
+    public long getSize() {
+        return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
+
+    public long getTestFlg() {
+        return testFlg;
+    }
+
+    public void setTestFlg(long testFlg) {
+        this.testFlg = testFlg;
+    }
+
 }

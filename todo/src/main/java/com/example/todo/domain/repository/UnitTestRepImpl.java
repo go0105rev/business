@@ -14,15 +14,24 @@ public class UnitTestRepImpl{
 
     private static final Map<String, UnitTest> UnitTestMap = new ConcurrentHashMap<String, UnitTest>();
 
-
-
     public Collection<UnitTest> findAll() {
         return UnitTestMap.values();
     }
+    
+    public UnitTest findBySnum(String sNum) {
+        return UnitTestMap.get("sNum");
+    }
 
+    public boolean isSourceNum(String sNum) {
+        return UnitTestMap.containsKey(sNum);
+    }
 
     public void create(UnitTest entity) {
-        UnitTestMap.put(entity.getSourceNum(), entity);
+        UnitTestMap.put(entity.getQuesNum(), entity);
     };
+    
+    public void updateBySnum(UnitTest entity) {
+        UnitTestMap.put(entity.getQuesNum(), entity);
+    }
 
 }

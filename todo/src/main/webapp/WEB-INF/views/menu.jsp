@@ -61,7 +61,7 @@
                 </div>
                 <ul class="nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="dashboard.html">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/codeLearn/">
                             <i class="nc-icon nc-chart-pie-35"></i>
                             ダッシュボード
                         </a>
@@ -73,7 +73,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="./table.html">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/codeLearn/lab/">
                             <i class="nc-icon nc-notes"></i>
                             開発LAB
                         </a>

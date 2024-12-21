@@ -1,37 +1,68 @@
 package com.example.todo.domain.service;
 
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.Date;
-import java.util.UUID;
+import java.util.List;
 
 import jakarta.inject.Inject;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 
-import com.example.todo.app.welcome.UnitTestInput;
+import com.example.todo.app.mapper.LabMapper;
+import com.example.todo.domain.model.Content;
+import com.example.todo.domain.model.Lab;
 import com.example.todo.domain.model.UnitTest;
+import com.example.todo.domain.repository.LabRepository;
+import com.example.todo.domain.repository.QuesRepository;
 import com.example.todo.domain.repository.UnitTestRepImpl;
 
 @Service
 public class UnitTestServiceImpl {
-//public class UnitTestServiceImpl extends BaseService<UnitTestInput, Output>{
 
     @Inject
     UnitTestRepImpl repository;
     
-    public UnitTest execute(UnitTestInput input) {
-        
+    @Inject
+    LabRepository lab;
+    
+    @Inject
+    QuesRepository ques;
+    
+    
+    public List<Lab> findTittle(){
+        return lab.findLab();
+    }
+    
+    public List<Content> findQues(long input){
+        return ques.findContent(input);
+    }
+    
+    public Content findDetail(String a){
+        return ques.findDetail(a);
+    }
+
+    public UnitTest execute(LabMapper input) {
+
         /*レコード新規作成*/
         UnitTest entity = new UnitTest();
-        entity.setQues(input.getQues());
-        entity.setScope(input.getScope());
-        entity.setUserId("R20240104");
-        entity.setSourceNum(UUID.randomUUID().toString());
+        entity.setQuesNum(input.getQuesNum());
+        entity.setVersion(0);
+        InputStream is =IOUtils.toInputStream(input.getContext(),"UTF-8");
+        entity.setSource(is);
         entity.setSaveTime(new Date());
-        repository.create(entity);
         
-        /*ソースのアップロード*/
-        
+        if (repository.isSourceNum(entity.getQuesNum())){
+            entity.setVersion(1);
+            repository.updateBySnum(entity);
+
+        }else {
+            entity.setUserId("testUser001");
+            repository.create(entity);
+        }
+
+
         /*ソーステスト*/
 
         /*テスト結果の更新*/
@@ -42,4 +73,9 @@ public class UnitTestServiceImpl {
     public Collection<UnitTest> findAll(){
         return repository.findAll();
     }
+    
+    public UnitTest findBySnum(String sNum){
+        return repository.findBySnum(sNum);
+    }
+    
 }

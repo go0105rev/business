@@ -122,12 +122,11 @@ button {
                     <h4 class="description text-center">v1.0.0</h4>
                     <br/>
                     <div class="login">
-                        <form method="post">
-                            <input type="text" placeholder="userName"/>
-                            <input type="password" placeholder="password"/>
-                            <button type="submit" class="btn btn-round btn-neutral btn-fill">Continue</button>
-                            <a href="http://demos.creative-tim.com/light-bootstrap-dashboard/documentation/tutorial-components.html">reference</a>
-                        </form>
+                        <form:form action="${pageContext.request.contextPath}/codeLearn/menu" method="get" modelAttribute="authMapper">
+                            <form:input path="userId"/>
+                            <form:input path="password"/>
+                            <form:button>Continue</form:button>
+                        </form:form>
                     </div>
                 </div>
             </div>

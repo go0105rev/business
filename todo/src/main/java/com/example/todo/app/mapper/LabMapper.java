@@ -1,35 +1,42 @@
-package com.example.todo.app.welcome;
+package com.example.todo.app.mapper;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import com.example.todo.domain.service.Input;
-
-public class UnitTestInput implements Input{
+public class LabMapper {
 
     private long scope;
-    
-    private int ques;
-    
+
+    private long ques;
+
+    private String quesNum;
+
     @NotNull
-    @Size(min=1,max=1000)
+    @Size(min = 1, max = 1000)
     private String context;
 
     public long getScope() {
         return scope;
     }
 
-
     public void setScope(long scope) {
         this.scope = scope;
     }
 
-    public int getQues() {
+    public long getQues() {
         return ques;
     }
 
-    public void setQues(int ques) {
+    public void setQues(long ques) {
         this.ques = ques;
+    }
+
+    public String getQuesNum() {
+        return quesNum;
+    }
+
+    public void setQuesNum(String quesNum) {
+        this.quesNum = quesNum;
     }
 
     public String getContext() {
@@ -40,11 +47,4 @@ public class UnitTestInput implements Input{
         this.context = context;
     }
 
-
-    @Override
-    public String toString() {
-        return "UnitTestInput [scope=" + scope + ", ques=" + ques + "]";
-    }
-    
-    
 }
