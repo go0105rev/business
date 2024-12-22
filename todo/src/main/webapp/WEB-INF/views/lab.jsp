@@ -18,21 +18,26 @@
 <link href="${pageContext.request.contextPath}/resources/app/css/demo.css" rel="stylesheet" />
 <style>
 .area{
-    display: inline-block;
+    border:2px solid lightcoral;
+    outline:none;
     width: 100%;
-    padding: 10px;
-    border: 1px solid #999;
+    padding: 5px;
     box-sizing: border-box;
+    line-height: normal;
+    height: 400px;
     background: #f2f2f2;
-    margin: 0.5em 0;
-    line-height: 100;
-    height: 30em;
+    display: block;
 }
 .alert-error {
     background-color: #c60f13;
     border-color: #970b0e;
     color: white;
 }
+
+.subtexts{
+    padding-left: 20px;
+}
+
 </style>
 <c:set var="output" value="output" />
 </head>
@@ -136,14 +141,14 @@
             <div class="content">
                 <div class="container-fluid">
                     <h1>${quesName}</h1>
-                    <h4>お題</h4>
-                    ${content}
-                    <h4>制約（ルール）</h4>
-                    <c:forEach items="${rule}" var="r"><ul><li>${r}</li></ul></c:forEach>
-                    <h4>入力例</h4>
-                    XXXXXXXXX
-                    <h4>出力例</h4>
-                    YYYYYYYYYY
+                    <h3>問題</h3>
+                        <div class="subtexts">${content}</div>
+                    <h3>制約（ルール）</h3>
+                        <c:forEach items="${rule}" var="r"><ul><li>${r}</li></ul></c:forEach>
+                    <h3>入力例</h3>
+                        <div class="subtexts">XXXXXXXXX</div>
+                    <h3>出力例</h3>
+                        <div class="subtexts">YYYYYYYYYY</div>
                     <div class="UnitTest">
                         <t:messagesPanel/>
                         <form:form
@@ -156,7 +161,7 @@
                     </div>
                     <hr/>
                     <div class="unitList">
-                    <h4>ソース</h4>
+                    <h3>ソース</h3>
                         <ul><li>${unitTest}</li></ul>
                     </div>
                 </div>
