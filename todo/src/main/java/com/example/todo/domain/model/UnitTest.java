@@ -15,11 +15,14 @@ public class UnitTest {
 
     private Date saveTime;
 
+    // TODO 消したい。
+    private String strSaveTime;
+
     private long size;
 
     private long duration;
 
-    private long testFlg;
+    private long score;
 
     public String getUserId() {
         return userId;
@@ -77,12 +80,20 @@ public class UnitTest {
         this.duration = duration;
     }
 
-    public long getTestFlg() {
-        return testFlg;
+    public long getScore() {
+        return score;
     }
 
-    public void setTestFlg(long testFlg) {
-        this.testFlg = testFlg;
+    public void setScore(long score) {
+        this.score = score;
+    }
+
+    public String getStrSaveTime() {
+        return strSaveTime;
+    }
+
+    public void setStrSaveTime(String strSaveTime) {
+        this.strSaveTime = strSaveTime;
     }
 
 }

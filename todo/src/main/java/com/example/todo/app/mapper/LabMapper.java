@@ -15,6 +15,11 @@ public class LabMapper {
     @Size(min = 1, max = 1000)
     private String context;
 
+    // TODD Auth移植したい
+    private String userId;
+
+    private String password;
+
     public long getScope() {
         return scope;
     }
@@ -45,6 +50,22 @@ public class LabMapper {
 
     public void setContext(String context) {
         this.context = context;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

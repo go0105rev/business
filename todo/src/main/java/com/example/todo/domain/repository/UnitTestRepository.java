@@ -1,6 +1,7 @@
 package com.example.todo.domain.repository;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.example.todo.domain.model.UnitTest;
 
@@ -8,11 +9,11 @@ public interface UnitTestRepository {
 
     Collection<UnitTest> findAll();
     
-    UnitTest findBySnum(String sNum);
+    List<UnitTest> findBySnum(String userId, String quesNum);
 
     void create(UnitTest enitity);
 
-    void updateBySnum(UnitTest entity);
+    void updateBySnum(long version, String userId, String quesNum);
     
     boolean isSourceNum(String sNum);
 

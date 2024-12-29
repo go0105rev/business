@@ -39,7 +39,6 @@
 }
 
 </style>
-<c:set var="output" value="output" />
 </head>
 
 <body>
@@ -155,6 +154,7 @@
                             action="${pageContext.request.contextPath}/codeLearn/lab/commit"
                             method="post" modelAttribute="labMapper">
                             <form:errors class="alert-error" path="context" />
+                            <form:input type="hidden" value="${quesNum}" path="quesNum" />
                             <form:textarea class="area" path="context"/>
                             <form:button>commit</form:button>
                         </form:form>
@@ -162,7 +162,15 @@
                     <hr/>
                     <div class="unitList">
                     <h3>ソース</h3>
-                        <ul><li>${unitTest}</li></ul>
+                        <table border="1">
+                            <tr><th> 更新日付 </th><th> 試験結果 </th><th> サイズ </th><th> 実行時間 </th></tr>
+                            <c:if test="${size > 0}">
+                                <c:forEach items="${output}" var="units">
+                                    <tr><td>${f:h(units.strSaveTime)} </td><td>${f:h(units.score)} </td><td> ${f:h(units.size)} </td><td> ${f:h(units.duration)} </td></tr>
+                                </c:forEach>
+                            </c:if>
+
+                        </table>
                     </div>
                 </div>
             </div>
