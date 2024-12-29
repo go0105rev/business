@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -52,6 +53,7 @@ public class QuesRepository implements QuesRepos {
             maps.put(d3.getQuesNum(), d3);
             maps.put(d4.getQuesNum(), d4);
             maps.put(d5.getQuesNum(), d5);
+            
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -66,16 +68,25 @@ public class QuesRepository implements QuesRepos {
     @Override
     public List<Content> findContent(long scope) {
 
-        List<Content> result = new ArrayList<>();
+
+        List<String> targetQues = new ArrayList<>();
         maps.forEach((k, v) -> {
             if(v.getScope()==scope) {
-                Content c = new Content();
-                c.setQuesNum(v.getQuesNum());
-                c.setQues(v.getQues());
-                c.setQuesName(v.getQuesName());
-                result.add(c);
+                targetQues.add(k);
             }
         });
+
+        Collections.sort(targetQues);
+
+        List<Content> result = new ArrayList<>();
+        targetQues.forEach(v->{
+            Content c = new Content();
+            c.setQuesNum(maps.get(v).getQuesNum());
+            c.setQues(maps.get(v).getQues());
+            c.setQuesName(maps.get(v).getQuesName());
+            result.add(c);
+        });
+        
 
         return result;
     };
