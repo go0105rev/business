@@ -139,14 +139,14 @@
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
-                    <h1>${quesName}</h1>
-                    <h3>問題</h3>
+                    <h3>${quesName}</h3>
+                    <h4>問題</h4>
                         <div class="subtexts">${content}</div>
-                    <h3>制約（ルール）</h3>
+                    <h4>制約（ルール）</h4>
                         <c:forEach items="${rule}" var="r"><ul><li>${r}</li></ul></c:forEach>
-                    <h3>入力例</h3>
+                    <h4>入力例</h4>
                         <div class="subtexts">XXXXXXXXX</div>
-                    <h3>出力例</h3>
+                    <h4>出力例</h4>
                         <div class="subtexts">YYYYYYYYYY</div>
                     <div class="UnitTest">
                         <t:messagesPanel/>
@@ -161,7 +161,7 @@
                     </div>
                     <hr/>
                     <div class="unitList">
-                    <h3>ソース</h3>
+                    <h4>ソース</h4>
                         <table border="1">
                             <tr><th> 更新日付 </th><th> 試験結果 </th><th> サイズ </th><th> 実行時間 </th></tr>
                             <c:if test="${size > 0}">

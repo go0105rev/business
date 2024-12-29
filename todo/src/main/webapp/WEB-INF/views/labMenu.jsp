@@ -136,17 +136,19 @@
                 <div class="container-fluid">
                     <h4>問題集</h4>
                     <ul>
-                        <c:forEach items="${output}" var="lab">
-                            <li>
-                                <a href="${pageContext.request.contextPath}/codeLearn/lab/scope">${f:h(lab.scopeName)}</a>
-                                <form:form
-                                    action="${pageContext.request.contextPath}/codeLearn/lab/scope"
-                                    method="get" modelAttribute="labMapper">
-                                    <form:input type="hidden" value="${f:h(lab.scope)}" path="scope" />
-                                    <form:button>${f:h(lab.scopeName)}</form:button>
-                                </form:form>
-                            </li>
-                        </c:forEach>
+                        <c:choose>
+                            <c:when test="${scope}">
+                                <c:forEach items="${output}" var="lab">
+                                    <li><a href="${pageContext.request.contextPath}/codeLearn/lab/scope?scope=${f:h(lab.scope)}">${f:h(lab.scopeName)}</a></li>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <c:forEach items="${output}" var="lab">
+                                    <li>${f:h(lab.quesNum)}:<a href="${pageContext.request.contextPath}/codeLearn/lab/scope/ques?quesNum=${f:h(lab.quesNum)}">${f:h(lab.quesName)}</a></li>
+                                </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
+                        
                     </ul>
                 </div>
             </div>

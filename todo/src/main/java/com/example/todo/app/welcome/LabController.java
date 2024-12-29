@@ -29,12 +29,6 @@ import com.example.todo.domain.service.UnitTestServiceImpl;
 @RequestMapping(value = "codeLearn/lab")
 public class LabController {
 
-    String ques = "ques";
-
-    String scope = "scope";
-
-    String user = "user";
-
     @Inject
     UnitTestServiceImpl service;
 
@@ -56,6 +50,7 @@ public class LabController {
         session.setComplete();
         List<Lab> result = service.findTittle();
         model.addAttribute("output", result);
+        model.addAttribute("scope", true);
         return "labMenu";
     }
 
@@ -71,7 +66,8 @@ public class LabController {
     public String labsQues(LabMapper input, Model model) {
         List<Content> result = service.findQues(input.getScope());
         model.addAttribute("output", result);
-        return "labMenu2";
+        model.addAttribute("scope", false);
+        return "labMenu";
     }
 
     /**
