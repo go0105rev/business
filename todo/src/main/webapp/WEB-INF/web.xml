@@ -114,7 +114,7 @@
 
     <error-page>
         <error-code>404</error-code>
-        <location>/WEB-INF/views/common/error/resourceNotFoundError.jsp</location>
+        <location>/WEB-INF/views/error/pageNotFoundError.html</location>
     </error-page>
 
     <error-page>

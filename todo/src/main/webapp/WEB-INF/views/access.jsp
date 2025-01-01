@@ -115,7 +115,7 @@ button {
     <!-- End Navbar -->
     <div class="wrapper">
         <div class="page-header clear-filter" filter-color="purple">
-            <div class="page-header-image" data-parallax="true" style="background-image: url('../assets/img/full-screen-image-3.jpg')">
+            <div class="page-header-image" data-parallax="true" style="background-image: url('${pageContext.request.contextPath}/resources/app/img/full-screen-image-3.jpg')">
                 <div class="filter"></div>
                 <div class="title-container text-center">
                     <h1>Welcome Code Learning</h1>
@@ -134,19 +134,12 @@ button {
         <footer class="footer">
             <div class="container-fluid">
                 <nav>
-                    <ul class="footer-menu">
-                        <li>
-                            <a href="#">
-                                Top
-                            </a>
-                        </li>
-                    </ul>
                     <p class="copyright text-center">
                         ©
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        <a href="http://www.creative-tim.com">Revale</a>, made with love for a better web
+                        <a href="https://www.revale.co.jp/">Revale</a>, made with love for a better web
                     </p>
                 </nav>
             </div>
