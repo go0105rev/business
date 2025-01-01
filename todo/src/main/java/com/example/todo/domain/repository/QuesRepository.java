@@ -24,7 +24,7 @@ public class QuesRepository implements QuesRepos {
 
             Content c1 = new Content("L001001", 1, 1, "営業開始", "長さ <br>N の英小文字からなる文字列S と英小文字 <br>c1,c2が与えられます。<br>Sの文字のうち<br>c1であるもの以外を全てc2に置き換えた文字列を求めてください。", "1≤N≤100,Nは整数", sdf.parse(
                     "20241208"), 0);
-            Content c2 = new Content("L001002", 1, 2, "客ラッシュ", "", "", sdf
+            Content c2 = new Content("L001002", 1, 2, "客ラッシュ", "毎日の客入店時間（T₁、T₂、T₃、Ta）と入店時間毎の客数（C₁、C₂、C₃、Ca）は、Ta Caずつの形で与えられます。<br>毎日の総客数と、最終入店時間を並べて表示しなさい。", "0800≤T≤2000、Tは整数,0≤C≤100、Cは整数", sdf
                     .parse("20241208"), 0);
             Content c3 = new Content("L001003", 1, 3, "展示物動き出す", "", "", sdf
                     .parse("20241208"), 0);
