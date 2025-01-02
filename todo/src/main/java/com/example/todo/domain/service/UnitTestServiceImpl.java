@@ -18,13 +18,13 @@ import com.example.todo.domain.model.Lab;
 import com.example.todo.domain.model.UnitTest;
 import com.example.todo.domain.repository.LabRepository;
 import com.example.todo.domain.repository.QuesRepository;
-import com.example.todo.domain.repository.UnitTestRepImpl;
+import com.example.todo.domain.repository.UnitTestRepository;
 
 @Service
 public class UnitTestServiceImpl {
 
     @Inject
-    UnitTestRepImpl repository;
+    UnitTestRepository repository;
 
     @Inject
     LabRepository lab;
@@ -58,6 +58,10 @@ public class UnitTestServiceImpl {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String strDate = dateFormat.format(entity.getSaveTime());
         entity.setStrSaveTime(strDate);
+        
+        StringBuilder sbl = new StringBuilder();
+        sbl.append(entity.getUserId()).append(entity.getQuesNum()).append(":").append(entity.getSaveTime());
+        entity.setSourceId(sbl.toString());
 
         repository.updateBySnum(1,entity.getUserId(),entity.getQuesNum());
 

@@ -10,4 +10,6 @@ public interface LabRepos {
     Collection<Lab> findAll();
 
     List<Lab> findLab();
+
+    String findName(long scopeNum);
 }

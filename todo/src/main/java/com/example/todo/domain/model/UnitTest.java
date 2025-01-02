@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class UnitTest {
 
+    private String sourceId;
+
     private String userId;
 
     private String quesNum;
@@ -23,6 +25,15 @@ public class UnitTest {
     private long duration;
 
     private long score;
+
+    
+    public String getSourceId() {
+        return sourceId;
+    }
+
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
+    }
 
     public String getUserId() {
         return userId;
@@ -96,4 +107,13 @@ public class UnitTest {
         this.strSaveTime = strSaveTime;
     }
 
+    @Override
+    public String toString() {
+        return "UnitTest [userId=" + userId + ", quesNum=" + quesNum
+                + ", version=" + version + ", saveTime=" + saveTime
+                + ", strSaveTime=" + strSaveTime + ", size=" + size
+                + ", duration=" + duration + ", score=" + score + "]";
+    }
+
+    
 }

@@ -1,20 +1,56 @@
 package com.example.todo.domain.repository;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.springframework.stereotype.Repository;
 
 import com.example.todo.domain.model.UnitTest;
 
-public interface UnitTestRepository {
+@Repository
+public class UnitTestRepository implements UnitTestRepos{
+    // public class UnitTestRepImpl implements UnitTestRepository {
 
-    Collection<UnitTest> findAll();
-    
-    List<UnitTest> findBySnum(String userId, String quesNum);
+    private static final Map<String, UnitTest> Maps = new ConcurrentHashMap<String, UnitTest>();
 
-    void create(UnitTest enitity);
+    @Override
+    public List<UnitTest> findAll() {
+        
+        return new ArrayList<>(Maps.values());
+    }
 
-    void updateBySnum(long version, String userId, String quesNum);
-    
-    boolean isSourceNum(String sNum);
+    @Override
+    public List<UnitTest> findBySnum(String userId, String quesNum) {
+        List<UnitTest> result = new ArrayList<>();
+        Maps.entrySet().forEach(v->{
+            if(v.getValue().getQuesNum().equals(quesNum) && v.getValue().getUserId().equals(userId)) {
+                result.add(v.getValue());
+            }
+        });
+        return result;
+    }
+
+    @Override
+    public boolean isSourceNum(String sNum) {
+        return Maps.containsKey(sNum);
+    }
+
+    @Override
+    public void create(UnitTest entity) {
+        Maps.put(entity.getSourceId(), entity);
+    };
+
+    @Override
+    public void updateBySnum(long version, String userId, String quesNum) {
+
+        Maps.forEach((k,v) ->{
+            if(k.startsWith(userId+quesNum)) {
+                v.setVersion(version);
+            }
+        });
+    }
+
 
 }

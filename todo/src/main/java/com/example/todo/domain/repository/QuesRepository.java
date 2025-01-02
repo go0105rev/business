@@ -96,4 +96,9 @@ public class QuesRepository implements QuesRepos {
         return maps.get(a);
     }
 
+    @Override
+    public String findName(String quesNum) {
+        return maps.get(quesNum).getQuesName();
+    }
+
 }

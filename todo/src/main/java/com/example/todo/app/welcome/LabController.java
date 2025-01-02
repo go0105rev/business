@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.exception.BusinessException;
 import org.terasoluna.gfw.common.message.ResultMessage;
@@ -46,8 +45,7 @@ public class LabController {
      * @return
      */
     @GetMapping(value = "/")
-    public String labs(SessionStatus session, Model model) {
-        session.setComplete();
+    public String labs(Model model) {
         List<Lab> result = service.findTittle();
         model.addAttribute("output", result);
         model.addAttribute("scope", true);

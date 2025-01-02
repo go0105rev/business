@@ -12,5 +12,7 @@ public interface QuesRepos {
     List<Content> findContent(long ques);
 
     Content findDetail(String quesNum);
+    
+    String findName(String quesNum);
 
 }

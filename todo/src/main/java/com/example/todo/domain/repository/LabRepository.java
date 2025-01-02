@@ -60,4 +60,8 @@ public class LabRepository implements LabRepos {
         return result;
     }
 
+    @Override
+    public String findName(long scopeNum) {
+        return maps.get(String.valueOf(scopeNum)).getScopeName();
+    }
 }
