@@ -18,6 +18,7 @@ public class MenuController {
      */
     @GetMapping(value = "codeLearn/dashBoard")
     public String dashboard(@AuthenticationPrincipal AccountUserDetails userDetails,Model model) {
+            model.addAttribute("userInf",userDetails.getUserInf());
             return "dashBoard";
     }
 

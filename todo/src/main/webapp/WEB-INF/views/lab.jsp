@@ -102,10 +102,17 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#pablo">
+                            <li class="nav-item dropdown">
+                                <a href="" class="dropdown-toggle nav-link" data-toggle="dropdown">
                                     <span class="no-icon">アカウント</span>
                                 </a>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-item">チーム名：認証情報未修正！！</div>
+                                    <div class="dropdown-item">ユーザ名：<sec:authentication property="principal.userInf.userName"/></div>
+                                    <div class="dropdown-item">年齢：<sec:authentication property="principal.userInf.age"/></div>
+                                    <div class="dropdown-item">職歴年数：<sec:authentication property="principal.userInf.exp"/></div>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/login/userInf">情報詳細..</a>
+                                </div>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="javascript:logout.submit()">
