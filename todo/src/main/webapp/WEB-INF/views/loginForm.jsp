@@ -106,7 +106,7 @@ button {
             <div class="collapse navbar-collapse justify-content-end" id="navigation">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="http://demos.creative-tim.com/bs3/light-bootstrap-dashboard/documentation/tutorial-components.html">ボタンA（TODO）</a>
+                        <a class="nav-link" href="http://demos.creative-tim.com/bs3/light-bootstrap-dashboard/documentation/tutorial-components.html">公式bootstrap（削除予定）</a>
                     </li>
                 </ul>
             </div>
@@ -131,7 +131,8 @@ button {
                             <input type="password" class="text" id="password" name="password">
                             <button>Continue</button>
                         </form:form>
-                        <a href="${pageContext.request.contextPath}/codeLearn/userInf/create">new user click here～～</a>
+                        <!-- 削除予定 -->
+                        <a href="${pageContext.request.contextPath}/login/register404">new user click here～～</a>
                     </div>
                 </div>
             </div>
