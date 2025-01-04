@@ -1,6 +1,7 @@
 package com.example.todo.app.welcome;
 
 import java.util.Date;
+import java.util.Locale;
 
 import jakarta.inject.Inject;
 
@@ -17,10 +18,10 @@ import com.example.todo.domain.model.UserInf;
 import com.example.todo.domain.service.UserManageServiceImpl;
 
 /**
- * ユーザ管理。
+ * ユーザの認証／認可／管理。
  */
 @Controller
-@RequestMapping(value = "login/userInf")
+@RequestMapping(value = "login")
 public class UserManageController {
 
 //    TODO mapStructs使いたい
@@ -37,12 +38,25 @@ public class UserManageController {
     }
 
     /**
+     * ログイン画面。
+     * @param locale
+     * @param model
+     * @return ビュー名
+     */
+    @GetMapping(value = "loginForm")
+    public String access(Locale locale, Model model) {
+
+        return "loginForm";
+
+    }
+
+    /**
      * ユーザ情報画面。
      * @param locale
      * @param model
      * @return ビュー名
      */
-    @GetMapping(value = "/userInf")
+    @GetMapping(value = "userInf")
     public String userMenu(
             @AuthenticationPrincipal AccountUserDetails userDetails,
             UserForm input, Model model) {
@@ -56,8 +70,8 @@ public class UserManageController {
      * @param model
      * @return ビュー名
      */
-    @GetMapping(value = "/create")
-    public String create(Model model) {
+    @GetMapping(value = "register")
+    public String register(Model model) {
         return "createForm";
     }
 
@@ -68,7 +82,7 @@ public class UserManageController {
      * @return ビュー名
      */
     @GetMapping(value = "confirm")
-    public String create(UserForm input, Model model) {
+    public String register(UserForm input, Model model) {
         
 //        UserInf userInf = beanMapper.map(input);
         UserInf userInf = new UserInf(input.getTeamId(),input.getUserId(),input.getUserName(),input.getGender(),input.getAge(),input.getExp(),null,null);
@@ -85,7 +99,7 @@ public class UserManageController {
      * @param model
      * @return ビュー名
      */
-    @GetMapping(value = "/userModify")
+    @GetMapping(value = "userModify")
     public String modify(Model model) {
         return "modifyForm";
     }
@@ -98,7 +112,7 @@ public class UserManageController {
      */
     @GetMapping(value = "modify")
     public String modify(UserForm input, Model model) {
-        return "menu";
+        return "redirect:userInf";
     }
     
     
@@ -112,4 +126,5 @@ public class UserManageController {
     public String complete(Model model) {
         return "complete";
     }
+
 }

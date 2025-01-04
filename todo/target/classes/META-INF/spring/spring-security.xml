@@ -15,7 +15,7 @@
             password-parameter="password"
             default-target-url="/codeLearn/dashBoard"
             always-use-default-target="true" />
-        <sec:logout/>
+        <sec:logout logout-success-url="/login/loginForm" />
         <sec:access-denied-handler ref="accessDeniedHandler"/>
         <sec:custom-filter ref="userIdMDCPutFilter" after="ANONYMOUS_FILTER"/>
         <sec:session-management />

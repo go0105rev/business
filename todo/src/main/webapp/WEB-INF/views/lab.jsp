@@ -108,10 +108,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#pablo">
+                                <a class="nav-link" href="javascript:logout.submit()">
                                     <span class="no-icon">Log out</span>
                                 </a>
                             </li>
+                            <form:form name="logout" action="${pageContext.request.contextPath}/logout" method="post"><input type="hidden"></form:form>
                         </ul>
                     </div>
                 </div>
