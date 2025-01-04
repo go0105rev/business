@@ -9,15 +9,23 @@
 
     <sec:http pattern="/resources/**" request-matcher="ant" security="none"/>
     <sec:http request-matcher="ant">
-        <sec:form-login/>
+        <sec:form-login login-page="/login/loginForm"
+            login-processing-url="/auth"
+            username-parameter="userId"
+            password-parameter="password"
+            default-target-url="/codeLearn/dashBoard"
+            always-use-default-target="true" />
         <sec:logout/>
         <sec:access-denied-handler ref="accessDeniedHandler"/>
         <sec:custom-filter ref="userIdMDCPutFilter" after="ANONYMOUS_FILTER"/>
         <sec:session-management />
-        <sec:intercept-url pattern="/**" access="permitAll" />
+        <sec:intercept-url pattern="/login/**" access="permitAll"/>
+        <sec:intercept-url pattern="/**" access="isAuthenticated()"/>
     </sec:http>
 
-    <sec:authentication-manager />
+    <sec:authentication-manager>
+        <sec:authentication-provider user-service-ref="authServiceImpl" /> 
+    </sec:authentication-manager>
 
     <!-- CSRF Protection -->
     <bean id="accessDeniedHandler"

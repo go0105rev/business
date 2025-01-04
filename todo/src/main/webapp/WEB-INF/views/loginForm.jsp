@@ -37,7 +37,7 @@
     <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
     <script src="${pageContext.request.contextPath}/resources/app/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../assets/css/demo.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/app/css/demo.css" rel="stylesheet" />
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     <!--TODO demo.js修正が必要-->
     <script src="${pageContext.request.contextPath}/resources/app/js/demo.js"></script>
@@ -122,11 +122,16 @@ button {
                     <h4 class="description text-center">v1.0.0</h4>
                     <br/>
                     <div class="login">
-                        <form:form action="${pageContext.request.contextPath}/codeLearn/menu" method="get" modelAttribute="authMapper">
-                            <form:input path="userId"/>
-                            <form:input path="password"/>
-                            <form:button>Continue</form:button>
+                        <c:if test="${param.containsKey('error')}">
+                            <t:messagesPanel messagesType="error"
+                                messagesAttributeName="SPRING_SECURITY_LAST_EXCEPTION"/>
+                        </c:if>
+                        <form:form action="${pageContext.request.contextPath}/auth" method="post">
+                            <input type="userId" class="text" id="userId" name="userId">
+                            <input type="password" class="text" id="password" name="password">
+                            <button>Continue</button>
                         </form:form>
+                        <a href="${pageContext.request.contextPath}/codeLearn/userInf/create">new user click here～～</a>
                     </div>
                 </div>
             </div>

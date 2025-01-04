@@ -45,7 +45,7 @@ public class RecordServiceImpl {
             target.setStrSaveTime(e.getStrSaveTime());
             target.setSourceId(e.getSourceId());
 
-            UserInf u = userInf.findUserName(target.getUserId());
+            UserInf u = userInf.findUser(target.getUserId());
             target.setUserName(u.getUserName());
             target.setTeamId(u.getTeamId());
 
