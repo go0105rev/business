@@ -9,7 +9,9 @@ public interface UserInfRepos {
 
     List<UserInf> findAll();
 
-    UserInf findUserName(String userId);
+    UserInf findUser(String userId);
 
     TeamInf findTeamName(String teamId);
+
+    void create(UserInf userInf);
 }

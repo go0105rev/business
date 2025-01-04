@@ -7,6 +7,8 @@ public class UserInf {
     private String teamId;
 
     private String userId;
+    
+    private String password;
 
     private String userName;
 
@@ -21,12 +23,31 @@ public class UserInf {
     private Date eDate;
 
     
-    public UserInf(String teamId, String userId, String userName,
+    
+    public UserInf() {
+        super();
+    }
+
+    public UserInf(String teamId, String userId,String userName,
             Integer gender, long age, long exp, Date sDate, Date eDate) {
         super();
         this.teamId = teamId;
         this.userId = userId;
         this.userName = userName;
+        this.gender = gender;
+        this.age = age;
+        this.exp = exp;
+        this.sDate = sDate;
+        this.eDate = eDate;
+    }
+
+    public UserInf(String teamId, String userId,String userName,String password,
+            Integer gender, long age, long exp, Date sDate, Date eDate) {
+        super();
+        this.teamId = teamId;
+        this.userId = userId;
+        this.userName = userName;
+        this.password=password;
         this.gender = gender;
         this.age = age;
         this.exp = exp;
@@ -48,6 +69,14 @@ public class UserInf {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUserName() {
