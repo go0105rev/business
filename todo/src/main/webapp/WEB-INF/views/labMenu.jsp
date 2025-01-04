@@ -41,13 +41,13 @@
         <div class="sidebar" data-image="${pageContext.request.contextPath}/resources/app/img/sidebar-5.jpg">
             <div class="sidebar-wrapper">
                 <div class="logo">
-                    <a href="${pageContext.request.contextPath}/codeLearn/menu" class="simple-text">
+                    <a href="${pageContext.request.contextPath}/codeLearn/dashBoard" class="simple-text">
                         Code eLearning
                     </a>
                 </div>
                 <ul class="nav">
                     <li>
-                        <a class="nav-link" href="${pageContext.request.contextPath}/codeLearn/menu">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/codeLearn/dashBoard">
                             <i class="nc-icon nc-chart-pie-35"></i>
                             ダッシュボード
                         </a>
