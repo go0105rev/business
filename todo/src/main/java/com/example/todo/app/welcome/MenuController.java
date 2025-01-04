@@ -11,8 +11,7 @@ import com.example.todo.app.mapper.AccountUserDetails;
 public class MenuController {
 
     /**
-     * ダッシュボード画面。
-     * 
+     * ログイン制御。
      * @param locale
      * @param model
      * @return ビュー名
