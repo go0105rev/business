@@ -115,7 +115,8 @@
                 p:lazyLoadingEnabled="true"
                 p:aggressiveLazyLoading="false"
                 p:defaultFetchSize="1000"
-                p:defaultExecutorType="REUSE" />
+                p:defaultExecutorType="REUSE"
+                p:mapUnderscoreToCamelCase="true" />
         </property>
     </bean>
 
