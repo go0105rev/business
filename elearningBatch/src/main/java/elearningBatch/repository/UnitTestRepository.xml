@@ -4,7 +4,7 @@
         
 <mapper namespace="elearningBatch.repository.UnitTestRepository">
 
-        <select id="findAll" resultType="elearningBatch.model.UnitTest">
+    <select id="findAll" resultType="elearningBatch.model.UnitTest">
         SELECT
             *
         FROM
@@ -15,13 +15,37 @@
             version ASC
     </select>
 
-    <update id="updateAsQues" parameterType="_long">
+    <select id="findAsVersion0" resultType="elearningBatch.model.UnitTest">
+        SELECT
+            source_id,
+            ques_num,
+            user_id
+        FROM
+            unit_test
+        WHERE
+            version = 0
+        ORDER BY
+            saveTime ASC
+    </select>
+
+    <select id="countAsQuesNum" resultType="_long">
+        SELECT
+            COUNT(source_id)
+        FROM
+            unit_test
+        WHERE
+            version = 0
+            AND user_id = #{userId}
+            AND ques_num = #{quesNum}
+    </select>
+
+    <update id="updateAsQues">
         UPDATE
             unit_test
         SET
-            score = #{score},
+            score = #{entity.score}
         WHERE
-            source_id = #{source_id}
+            source_id = #{sourceId}
     </update>
 
 </mapper>
