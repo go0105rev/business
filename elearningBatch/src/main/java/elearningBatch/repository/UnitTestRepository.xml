@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="elearningBatch.repository.UnitTestRepository">
+
+        <select id="findAll" resultType="elearningBatch.model.UnitTest">
+        SELECT
+            *
+        FROM
+            unit_test
+        ORDER BY
+            user_id ASC,
+            ques_num ASC
+            version ASC
+    </select>
+
+    <update id="updateAsQues" parameterType="_long">
+        UPDATE
+            unit_test
+        SET
+            score = #{score},
+        WHERE
+            source_id = #{source_id}
+    </update>
+
+</mapper>
