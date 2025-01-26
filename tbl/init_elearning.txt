@@ -1,0 +1,60 @@
+DROP TABLE USER_INF;
+DROP TABLE LAB;
+DROP TABLE CONTENT;
+DROP TABLE TEAM_INF;
+DROP TABLE UNIT_TEST;
+
+CREATE TABLE USER_INF(
+    team_id char(5) not null,
+    user_id char(7) not null,
+    password char(17) not null,
+    user_name char(20) not null,
+    gender SMALLINT not null,
+    age INTEGER,
+    exp INTEGER,
+    s_date TIMESTAMP not null,
+    e_date TIMESTAMP,
+    PRIMARY KEY(user_id)
+);
+
+CREATE TABLE LAB(
+    scope INTEGER not null,
+    scope_name TEXT not null,
+    sdate TIMESTAMP,
+    acess_flg SMALLINT,
+    PRIMARY KEY(scope)
+);
+
+CREATE TABLE CONTENT(
+    ques_num char(8) not null,
+    scope BIGINT,
+    ques BIGINT,
+    ques_name char(50) not null,
+    detail TEXT,
+    rule TEXT,
+    sdate TIMESTAMP,
+    acess_flg SMALLINT,
+    PRIMARY KEY(ques_num)
+);
+
+CREATE TABLE TEAM_INF(
+    team_id char(5) not null,
+    team_name char(50) not null,
+    s_date TIMESTAMP,
+    e_date TIMESTAMP,
+    PRIMARY KEY(team_id)
+);
+
+CREATE TABLE UNIT_TEST(
+    sourceId char(20) not null,
+    user_id char(7) not null,
+    ques_num char(8) not null,
+    version SMALLINT,
+    source BYTEA,
+    saveTime TIMESTAMP not null,
+    strSaveTime char(17) not null,
+    size DOUBLE PRECISION,
+    duration DOUBLE PRECISION,
+    score BIGINT,
+    PRIMARY KEY(sourceId)
+);
