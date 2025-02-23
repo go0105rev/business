@@ -12,7 +12,7 @@
         ORDER BY
             user_id ASC,
             ques_num ASC
-            version ASC
+            status ASC
     </select>
 
     <select id="findAsVersion0" resultType="elearningBatch.model.UnitTest">
@@ -23,7 +23,7 @@
         FROM
             unit_test
         WHERE
-            version = 0
+            status = 0
         ORDER BY
             saveTime ASC
     </select>
@@ -34,16 +34,28 @@
         FROM
             unit_test
         WHERE
-            version = 0
+            status = 0
             AND user_id = #{userId}
             AND ques_num = #{quesNum}
+    </select>
+
+    <select id="finddataAsId" resultType="elearningBatch.model.UnitTest">
+        SELECT
+            source
+        FROM
+            unit_test
+        WHERE
+            status = 0
+            AND source_id = #{sourceId}
     </select>
 
     <update id="updateAsQues">
         UPDATE
             unit_test
         SET
-            score = #{entity.score}
+            score = #{entity.score},
+            duration = #{entity.duration},
+            status = #{entity.status}
         WHERE
             source_id = #{sourceId}
     </update>

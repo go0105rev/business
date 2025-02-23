@@ -1,5 +1,6 @@
 package elearningBatch.repository;
 
+import java.io.InputStream;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -13,6 +14,8 @@ public interface UnitTestRepository {
     List<UnitTest> findAll();
 
     List<UnitTest> findAsVersion0();
+    
+    InputStream finddataAsId(@Param("sourceId") String sourceId);
     
     long countAsQuesNum(@Param("quesNum") String quesNum, @Param("userId") String userId);
 

@@ -46,15 +46,15 @@ CREATE TABLE TEAM_INF(
 );
 
 CREATE TABLE UNIT_TEST(
-    sourceId char(20) not null,
+    source_id char(20) not null,
     user_id char(7) not null,
     ques_num char(8) not null,
-    version SMALLINT,
+    status SMALLINT,
     source BYTEA,
     saveTime TIMESTAMP not null,
     strSaveTime char(17) not null,
     size DOUBLE PRECISION,
     duration DOUBLE PRECISION,
     score BIGINT,
-    PRIMARY KEY(sourceId)
+    PRIMARY KEY(source_id)
 );

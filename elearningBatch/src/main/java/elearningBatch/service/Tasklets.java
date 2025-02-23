@@ -49,6 +49,11 @@ public abstract class Tasklets implements Tasklet {
     public abstract Status process(List<String> input);
 
     public enum Status {
-        OK, NG;
+
+        /** 正常終了。 */
+        OK,
+
+        /** 異常終了。 */
+        NG;
     }
 }
