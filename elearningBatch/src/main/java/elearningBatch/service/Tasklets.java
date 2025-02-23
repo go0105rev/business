@@ -24,7 +24,7 @@ public abstract class Tasklets implements Tasklet {
         List<String> params = new ArrayList<>();
 
         int a = chunkContext.getStepContext().getJobParameters().size();
-        Map<String,Object> c=chunkContext.getStepContext().getJobParameters();
+        Map<String, Object> c = chunkContext.getStepContext().getJobParameters();
         for (int i = 0; i < a; i++) {
             String s = (String) chunkContext.getStepContext().getJobParameters()
                     .get("arg" + i);
