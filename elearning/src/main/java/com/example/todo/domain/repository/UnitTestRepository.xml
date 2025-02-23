@@ -11,7 +11,7 @@
             unit_test
         ORDER BY
             user_id ASC,
-            ques_num ASC
+            ques_num ASC,
             status ASC
     </select>
 

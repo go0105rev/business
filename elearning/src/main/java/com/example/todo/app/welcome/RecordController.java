@@ -1,5 +1,7 @@
 package com.example.todo.app.welcome;
 
+import java.util.List;
+
 import jakarta.inject.Inject;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.todo.app.mapper.LabMapper;
+import com.example.todo.app.mapper.RecordMapper;
+import com.example.todo.domain.model.Lab;
 import com.example.todo.domain.service.RecordOutput;
 import com.example.todo.domain.service.RecordServiceImpl;
 
@@ -20,14 +24,22 @@ public class RecordController {
     RecordServiceImpl service;
 
     @ModelAttribute
-    public LabMapper setForm() {
-        LabMapper input = new LabMapper();
-        input.setUserId("testUser001");
+    public RecordMapper setForm() {
+        RecordMapper input = new RecordMapper();
         return input;
     }
 
     @GetMapping(value = "/")
-    public String recode(Model model) {
+    public String recodes(Model model) {
+        List<Lab> result = service.findTittle();
+        model.addAttribute("output", result);
+        model.addAttribute("scope", true);
+
+        return "recordMenu";
+    }
+
+    @GetMapping(value = "/scope")
+    public String recodeQues(Model model) {
         RecordOutput result = service.findAllRecord();
         model.addAttribute("size", result.getUnitTest().size());
         model.addAttribute("output", result.getUnitTest());

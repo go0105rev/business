@@ -8,6 +8,7 @@ import jakarta.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.example.todo.domain.model.Content;
+import com.example.todo.domain.model.Lab;
 import com.example.todo.domain.model.TeamInf;
 import com.example.todo.domain.model.UnitTest;
 import com.example.todo.domain.model.UserInf;
@@ -30,6 +31,11 @@ public class RecordServiceImpl {
     
     @Inject
     LabRepository lab;
+
+    public List<Lab> findTittle() {
+        List<Lab> a = new ArrayList();
+        return a;
+    }
 
     public RecordOutput findAllRecord() {
 
