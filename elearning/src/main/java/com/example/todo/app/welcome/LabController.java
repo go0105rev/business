@@ -28,6 +28,7 @@ import com.example.todo.domain.service.UnitTestServiceImpl;
 
 @Controller
 @RequestMapping(value = "codeLearn/lab")
+@SessionAttributes(types = { LabSession.class })
 public class LabController {
 
     @Inject
@@ -37,6 +38,11 @@ public class LabController {
     public LabMapper setForm() {
         LabMapper input = new LabMapper();
         return input;
+    }
+
+    @ModelAttribute(value = "labSession")
+    public LabSession setLabSession() {
+        return new LabSession();
     }
 
     /**
@@ -78,9 +84,9 @@ public class LabController {
      * @return
      */
     @GetMapping(value = "/scope/ques")
-    public String labsDetail(LabMapper input, Model model) {
+    public String labsDetail(LabMapper input, Model model, LabSession session) {
 
-        model.addAttribute("quesNum", input.getQuesNum());
+        model.addAttribute(session);
 
         Content result = service.findDetail(input.getQuesNum());
         if (result != null) {
