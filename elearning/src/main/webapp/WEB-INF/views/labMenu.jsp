@@ -35,7 +35,7 @@
 }
 </style>
 </head>
-
+<sec:authentication property="principal.userInf" var="account" />
 <body>
     <div class="wrapper">
         <div class="sidebar" data-image="${pageContext.request.contextPath}/resources/app/img/sidebar-5.jpg">
@@ -132,7 +132,7 @@
                             </c:when>
                             <c:otherwise>
                                 <c:forEach items="${output}" var="lab">
-                                    <li>${f:h(lab.quesNum)}:<a href="${pageContext.request.contextPath}/codeLearn/lab/scope/ques?quesNum=${f:h(lab.quesNum)}">${f:h(lab.quesName)}</a></li>
+                                    <li>${f:h(lab.quesNum)}:<a href="${pageContext.request.contextPath}/codeLearn/lab/scope/ques?quesNum=${f:h(lab.quesNum)}&userId=${account.userId}">${f:h(lab.quesName)}</a></li>
                                 </c:forEach>
                             </c:otherwise>
                         </c:choose>

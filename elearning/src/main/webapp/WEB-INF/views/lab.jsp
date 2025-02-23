@@ -41,6 +41,7 @@
 </style>
 </head>
 
+<sec:authentication property="principal.userInf" var="account" />
 <body>
     <div class="wrapper">
         <div class="sidebar" data-image="${pageContext.request.contextPath}/resources/app/img/sidebar-5.jpg">
@@ -142,7 +143,8 @@
                             action="${pageContext.request.contextPath}/codeLearn/lab/commit"
                             method="post" modelAttribute="labMapper">
                             <form:errors class="alert-error" path="context" />
-                            <form:input type="hidden" value="${quesNum}" path="quesNum" />
+                            <form:input type="hidden" value="${labSession.quesNum}" path="quesNum" />
+                            <form:input type="hidden" value="${account.userId}" path="userId" />
                             <form:textarea class="area" path="context"/>
                             <form:button>commit</form:button>
                         </form:form>
@@ -151,10 +153,18 @@
                     <div class="unitList">
                     <h4>ソース</h4>
                         <table border="1">
-                            <tr><th> 更新日付 </th><th> 試験結果 </th><th> サイズ </th><th> 実行時間 </th></tr>
-                            <c:if test="${size > 0}">
+                            試験結果（0:評価中。1:クリア。2:一部クリア。9:エラー（コンパイルエラー含め）。）
+                            <tr><th>ID</th><th>スコア</th><th>サイズ</th><th>実行時間</th><th>試験結果</th><th>更新日付</th></tr>
+                            <c:if test="${cnt > 0}">
                                 <c:forEach items="${output}" var="units">
-                                    <tr><td>${f:h(units.strSaveTime)} </td><td>${f:h(units.score)} </td><td> ${f:h(units.size)} </td><td> ${f:h(units.duration)} </td></tr>
+                                    <tr>
+                                        <td>${f:h(units.sourceId)}</td>
+                                        <td>${f:h(units.score)} 点</td>
+                                        <td>${f:h(units.size)} byte</td>
+                                        <td>${f:h(units.duration)} ms</td>
+                                        <td>${f:h(units.status)}</td>
+                                        <td>${f:h(units.strSaveTime)}</td>
+                                    </tr>
                                 </c:forEach>
                             </c:if>
 

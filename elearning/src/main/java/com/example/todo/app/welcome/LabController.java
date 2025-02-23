@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.exception.BusinessException;
 import org.terasoluna.gfw.common.message.ResultMessage;
@@ -21,6 +22,7 @@ import org.terasoluna.gfw.common.message.ResultMessages;
 import com.example.todo.app.mapper.LabMapper;
 import com.example.todo.domain.model.Content;
 import com.example.todo.domain.model.Lab;
+import com.example.todo.domain.model.LabSession;
 import com.example.todo.domain.model.UnitTest;
 import com.example.todo.domain.service.UnitTestServiceImpl;
 
@@ -34,7 +36,6 @@ public class LabController {
     @ModelAttribute
     public LabMapper setForm() {
         LabMapper input = new LabMapper();
-        input.setUserId("testUser001");
         return input;
     }
 
@@ -93,10 +94,10 @@ public class LabController {
 
         List<UnitTest> unitTest = service.findBySnum(input.getUserId(), input
                 .getQuesNum());
-        int size = unitTest.size();
+        int cnt = unitTest.size();
 
         model.addAttribute("output", unitTest);
-        model.addAttribute("size", size);
+        model.addAttribute("cnt", cnt);
 
         return "lab";
     }

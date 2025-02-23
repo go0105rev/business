@@ -126,8 +126,8 @@ button {
                             <t:messagesPanel messagesType="error"
                                 messagesAttributeName="SPRING_SECURITY_LAST_EXCEPTION"/>
                         </c:if>
-                        <form:form action="${pageContext.request.contextPath}/login/userInf/confirm" method="get" modelAttribute="userForm">
-                            チーム名<form:input path="teamId"/>
+                        <form:form action="${pageContext.request.contextPath}/login/confirm" method="get" modelAttribute="userForm">
+                            チームId<form:input path="teamId"/>
                             ユーザID<form:input path="userId"/>
                             ユーザPW<form:input path="pass"/>
                             名前<form:input path="userName"/>

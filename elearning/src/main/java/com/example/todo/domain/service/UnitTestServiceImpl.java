@@ -1,14 +1,14 @@
 package com.example.todo.domain.service;
 
-import java.io.InputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 import jakarta.inject.Inject;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 
 import com.example.todo.app.common.handler.JavaFileHandler;
@@ -33,11 +33,11 @@ public class UnitTestServiceImpl {
     QuesRepository ques;
 
     public List<Lab> findTittle() {
-        return lab.findLab();
+        return lab.findAll();
     }
 
     public List<Content> findQues(long input) {
-        return ques.findContent(input);
+        return ques.findContents(input);
     }
 
     public Content findDetail(String a) {
@@ -46,36 +46,43 @@ public class UnitTestServiceImpl {
 
     public UnitTest execute(LabMapper input) {
 
-        /* レコード新規作成 */
-        UnitTest entity = new UnitTest();
-        entity.setQuesNum(input.getQuesNum());
-        entity.setVersion(0);
-        InputStream is = IOUtils.toInputStream(input.getContext(), "UTF-8");
-        entity.setSource(is);
-        entity.setSaveTime(new Date());
-        entity.setUserId(input.getUserId());
-        
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String strDate = dateFormat.format(entity.getSaveTime());
-        entity.setStrSaveTime(strDate);
-        
-        StringBuilder sbl = new StringBuilder();
-        sbl.append(entity.getUserId()).append(entity.getQuesNum()).append(":").append(entity.getSaveTime());
-        entity.setSourceId(sbl.toString());
+        try {
+            /* レコード新規作成 */
+            UnitTest entity = new UnitTest();
+            entity.setQuesNum(input.getQuesNum());
+            // InputStream is = IOUtils.toInputStream(input.getContext(), "UTF-8");
+            byte[] is = input.getContext().getBytes("UTF-8");
+            entity.setSource(is);
+            entity.setSize(is.length);
+            entity.setSaveTime(new Date());
+            entity.setUserId(input.getUserId());
 
-        repository.updateBySnum(1,entity.getUserId(),entity.getQuesNum());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String strDate = dateFormat.format(entity.getSaveTime());
+            entity.setStrSaveTime(strDate);
 
-        repository.create(entity);
+            String y = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+            String m = String.format("%02d", Calendar.getInstance().get(Calendar.MONTH)+1);
+            String sourceId=y+m+String.format("%07d",repository.nextNum(y));
+            entity.setSourceId(sourceId);
 
-        JavaFileHandler fl = new JavaFileHandler("\\home\\codeLearn\\" + entity
-                .getUserId() + "\\" + entity.getQuesNum());
-        fl.create(input.getContext().getBytes());
+            // repository.updateBySnum(1,entity.getUserId(),entity.getQuesNum());
 
-        /* ソーステスト */
+            repository.create(entity);
 
-        /* テスト結果の更新 */
+            JavaFileHandler fl = new JavaFileHandler("\\home\\codeLearn\\"
+                    + entity.getUserId() + "\\" + sourceId);
+            fl.create(input.getContext().getBytes());
 
-        return entity;
+            /* ソーステスト */
+
+            /* テスト結果の更新 */
+
+            return entity;
+
+        } catch (IOException e) {
+            throw new IllegalArgumentException();
+        }
     }
 
     public Collection<UnitTest> findAll() {
@@ -83,7 +90,7 @@ public class UnitTestServiceImpl {
     }
 
     public List<UnitTest> findBySnum(String userId, String quesNum) {
-        return repository.findBySnum(userId,quesNum);
+        return repository.findBySnum(userId, quesNum);
     }
 
 }

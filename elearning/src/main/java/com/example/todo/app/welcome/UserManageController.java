@@ -1,6 +1,5 @@
 package com.example.todo.app.welcome;
 
-import java.util.Date;
 import java.util.Locale;
 
 import jakarta.inject.Inject;
@@ -85,9 +84,7 @@ public class UserManageController {
     public String register(UserForm input, Model model) {
         
 //        UserInf userInf = beanMapper.map(input);
-        UserInf userInf = new UserInf(input.getTeamId(),input.getUserId(),input.getUserName(),input.getGender(),input.getAge(),input.getExp(),null,null);
-        userInf.setsDate(new Date());
-        
+        UserInf userInf = new UserInf(input.getTeamId(),input.getUserId(),input.getUserName(),input.getGender(),input.getAge(),input.getExp());
         userManageService.register(userInf,input.getPass());
         
         return "redirect:complete";
