@@ -16,6 +16,20 @@
 <link href="${pageContext.request.contextPath}/resources/app/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
 <!-- CSS Just for demo purpose, don't include it in your project -->
 <link href="${pageContext.request.contextPath}/resources/app/css/demo.css" rel="stylesheet" />
+<!--   Core JS Files   -->
+<script src="${pageContext.request.contextPath}/resources/app/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/app/js/core/popper.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/app/js/core/bootstrap.min.js" type="text/javascript"></script>
+<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+<script src="${pageContext.request.contextPath}/resources/app/js/plugins/bootstrap-switch.js"></script>
+<!--  Google Maps Plugin    -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!--  Chartist Plugin  -->
+<script src="${pageContext.request.contextPath}/resources/app/js/plugins/chartist.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="${pageContext.request.contextPath}/resources/app/js/plugins/bootstrap-notify.js"></script>
+<!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
+<script src="${pageContext.request.contextPath}/resources/app/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
 <style>
 .area{
     border:2px solid lightcoral;
@@ -108,10 +122,8 @@
                                     <span class="no-icon">アカウント</span>
                                 </a>
                                 <div class="dropdown-menu">
-                                    <div class="dropdown-item">チーム名：認証情報未修正！！</div>
-                                    <div class="dropdown-item">ユーザ名：<sec:authentication property="principal.userInf.userName"/></div>
-                                    <div class="dropdown-item">年齢：<sec:authentication property="principal.userInf.age"/></div>
-                                    <div class="dropdown-item">職歴年数：<sec:authentication property="principal.userInf.exp"/></div>
+                                    <div class="dropdown-item">チーム名：${account.teamId}</div>
+                                    <div class="dropdown-item">ユーザ名：${account.userName}</div>
                                     <a class="dropdown-item" href="${pageContext.request.contextPath}/login/userInf">情報詳細..</a>
                                 </div>
                             </li>
@@ -267,21 +279,5 @@
 </div>
  -->
 </body>
-<!--   Core JS Files   -->
-<script src="../assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
-<script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
-<script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-<script src="../assets/js/plugins/bootstrap-switch.js"></script>
-<!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-<!--  Chartist Plugin  -->
-<script src="../assets/js/plugins/chartist.min.js"></script>
-<!--  Notifications Plugin    -->
-<script src="../assets/js/plugins/bootstrap-notify.js"></script>
-<!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
-<script src="../assets/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
-<!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
-<script src="../assets/js/demo.js"></script>
 
 </html>

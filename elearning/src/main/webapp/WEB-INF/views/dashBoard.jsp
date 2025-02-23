@@ -45,6 +45,7 @@
     });
 </script>
 </head>
+<sec:authentication property="principal.userInf" var="account" />
 <body>
     <div class="wrapper">
         <div class="sidebar" data-image="${pageContext.request.contextPath}/resources/app/img/sidebar-5.jpg">
@@ -111,10 +112,8 @@
                                     <span class="no-icon">アカウント</span>
                                 </a>
                                 <div class="dropdown-menu">
-                                    <div class="dropdown-item">チーム名：認証情報未修正！！</div>
-                                    <div class="dropdown-item">ユーザ名：<sec:authentication property="principal.userInf.userName"/></div>
-                                    <div class="dropdown-item">年齢：<sec:authentication property="principal.userInf.age"/></div>
-                                    <div class="dropdown-item">職歴年数：<sec:authentication property="principal.userInf.exp"/></div>
+                                    <div class="dropdown-item">チーム名：${account.teamId}</div>
+                                    <div class="dropdown-item">ユーザ名：${account.userName}</div>
                                     <a class="dropdown-item" href="${pageContext.request.contextPath}/login/userInf">情報詳細..</a>
                                 </div>
                             </li>
