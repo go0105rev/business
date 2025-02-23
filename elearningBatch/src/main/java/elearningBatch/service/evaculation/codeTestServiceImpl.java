@@ -7,9 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,37 +41,30 @@ public class codeTestServiceImpl extends Tasklets {
             String target = t.getSourceId();
             logger.debug(target + "[start]");
 
-            long a = repository.countAsQuesNum(t.getQuesNum(), t.getUserId());
-            if (a > 1) {
-                logger.error(
-                        "[ONLY CAN HAVE ONE OF SINGLE QUESNUM SINGLE USERID]: "
-                                + target);
-                return;
-            }
+            // TOOD マルチスレッドを実現し、数制限が不要
+//            long a = repository.countAsQuesNum(t.getQuesNum(), t.getUserId());
+//            if (a > 1) {
+//                logger.error(
+//                        "[ONLY CAN HAVE ONE OF SINGLE QUESNUM SINGLE USERID]: "
+//                                + target);
+//                return;
+//            }
 
-            /* target java create */
-            // TODO 調査中
-            // InputStream c = repository.finddataAsId(target);
-            // try (FileOutputStream fos = new FileOutputStream(path);) {
-            // fos.write(c.readAllBytes());
-            // } catch (IOException e) {
-            // e.printStackTrace();
-            // }
-
-            String path = "/home/codeLearn/evaculation/target/" + target + ".java";
+            String path = "/home/codeLearn/" + t.getUserId() + "/" + target
+                    + "/";
             List<String> editClass = new ArrayList<>();
             editClass.add("javac");
-            editClass.add(path);
+            editClass.add(path + "main.java");
             execute(new ProcessBuilder(editClass));
 
             try {
                 List<String> cmd = new ArrayList<>();
                 cmd.add("java");
                 cmd.add("-cp");
-                cmd.add("/home/codeLearn/evaculation/target/");
-                cmd.add(target);
+                cmd.add(path);
+                cmd.add("main");
 
-                File file = new File("/home/codeLearn/evaculation/testTemp/" + t
+                File file = new File("/home/codeLearn/evaculation/" + t
                         .getQuesNum() + ".csv");
                 List<TestResult> csv = convertToTest(file);
                 // TODO inputからoutputを複製したい
@@ -88,8 +78,7 @@ public class codeTestServiceImpl extends Tasklets {
 
             } catch (Exception e) {
                 UnitTest entity = new UnitTest();
-                // TODO 問題なければ、9とする。
-                entity.setStatus((short) 0);
+                entity.setStatus((short) 9);
                 repository.updateAsQues(entity, target);
                 if (e instanceof IllegalArgumentException) {
                     logger.error("[targetFile Error]" + target, e);
@@ -100,15 +89,11 @@ public class codeTestServiceImpl extends Tasklets {
                 }
 
             } finally {
-                // TODO 対象ファイル削除(javaファイルも)
-                Path p = Paths.get("/home/codeLearn/evaculation/target/" + target
-                        + ".class");
-                try {
-                    if (Files.deleteIfExists(p)) {
-                    }
-                } catch (IOException e) {
-                    throw new IllegalStateException();
-                }
+                 File dir = new File(path);
+                 for(File f : dir.listFiles()){
+                 f.delete();
+                 }
+                 dir.delete();
             }
 
             logger.debug(target + "end");
@@ -144,7 +129,7 @@ public class codeTestServiceImpl extends Tasklets {
             Process process) throws IOException {
 
         long miliSec = process.info().totalCpuDuration().get().get(
-                ChronoUnit.NANOS)/1000000;
+                ChronoUnit.NANOS) / 1000000;
         int exit = process.exitValue();
         if (exit != 0) {
             try (BufferedReader errStream = process.errorReader(
@@ -157,8 +142,8 @@ public class codeTestServiceImpl extends Tasklets {
                     sb.append(es);
                 }
 
-                logger.error("statusCd[" + exit + "] sec [" + miliSec + "s]" + sb
-                        .toString());
+                logger.error("statusCd[" + exit + "] sec [" + miliSec + "s]"
+                        + sb.toString());
             }
 
             throw new IllegalArgumentException();
@@ -200,22 +185,19 @@ public class codeTestServiceImpl extends Tasklets {
                 .average().getAsDouble();
 
         UnitTest e = new UnitTest();
-        if(total==standard) {
-            double aveTime =sumSec/io.size();
-            if(aveTime>0) {
+        if (total == standard) {
+            double aveTime = sumSec / io.size();
+            if (aveTime > 0) {
                 total += total;
             }
             e.setScore(Long.valueOf(total));
             e.setDuration(aveTime);
-            // TODO 問題なければ、1とする。
-            e.setStatus((short) 0);
-            
-        }else {
-            e.setScore(Long.valueOf(total));
-            // TODO 問題なければ、2とする。
-            e.setStatus((short) 0);
-        }
+            e.setStatus((short) 1);
 
+        } else {
+            e.setScore(Long.valueOf(total));
+            e.setStatus((short) 2);
+        }
 
         repository.updateAsQues(e, target);
     }
