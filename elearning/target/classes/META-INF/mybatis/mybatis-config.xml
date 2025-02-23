@@ -9,6 +9,7 @@
         <setting name="mapUnderscoreToCamelCase" value="true" />
         <setting name="lazyLoadingEnabled" value="true" />
         <setting name="defaultFetchSize" value="100" />
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
 <!--
         <setting name="defaultExecutorType" value="REUSE" />
         <setting name="jdbcTypeForNull" value="NULL" />
@@ -25,9 +26,7 @@
     </typeAliases>
 
     <typeHandlers>
-<!--
         <package name="com.example.todo.infra.mybatis.typehandler" />
--->
     </typeHandlers>
 
 </configuration>

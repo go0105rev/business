@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.example.todo.domain.repository.QuesRepository">
+
+    <select id="findAll" resultType="com.example.todo.domain.model.Content">
+        SELECT
+            *
+        FROM
+            content
+        ORDER BY
+            scope ASC,
+            ques ASC
+    </select>
+
+    <select id="findContents" resultType="com.example.todo.domain.model.Content">
+        SELECT
+            ques_num,
+            scope,
+            ques,
+            ques_name,
+            acess_flg
+        FROM
+            content
+        WHERE
+            scope = #{scope}
+        ORDER BY
+            ques ASC
+    </select>
+
+    <select id="findDetail" resultType="com.example.todo.domain.model.Content">
+        SELECT
+            ques_name,
+            detail,
+            rule,
+            sdate
+        FROM
+            content
+        WHERE
+            ques_num = #{quesNum}
+    </select>
+
+</mapper>

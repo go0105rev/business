@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.example.todo.domain.repository.UnitTestRepository">
+
+    <select id="findAll" resultType="com.example.todo.domain.model.UnitTest">
+        SELECT
+            *
+        FROM
+            unit_test
+        ORDER BY
+            user_id ASC,
+            ques_num ASC
+            status ASC
+    </select>
+
+    <select id="findBySnum" resultType="com.example.todo.domain.model.UnitTest">
+        SELECT
+            source_id,
+            status,
+            strsavetime,
+            size,
+            duration,
+            score
+        FROM
+            unit_test
+        WHERE
+                user_id = #{userId}
+            AND ques_num = #{quesNum}
+        ORDER BY
+            ques_num ASC,
+            status ASC
+    </select>
+
+    <update id="create">
+        INSERT INTO UNIT_TEST
+            (source_id,user_id,ques_num,status,source,savetime,strsavetime,size,duration,score)
+        VALUES
+            (#{sourceId},#{userId},#{quesNum},0,#{source},#{savetime},#{strsavetime},#{size},#{duration},#{score})
+    </update>
+
+    <update id="updateBySnum">
+        UPDATE
+            unit_test
+        SET
+            STATUS = 0
+        WHERE
+                user_id = #{userId}
+            AND ques_num = #{quesNum}
+    </update>
+
+    <update id="updateAsQues">
+        UPDATE
+            unit_test
+        SET
+            score = #{entity.score},
+            duration = #{entity.duration},
+            status = #{entity.status}
+        WHERE
+            source_id = #{sourceId}
+    </update>
+
+    <select id="nextNum" resultType="_long">
+        select nextval('seq_unit_test_${year}')
+    </select>
+
+</mapper>

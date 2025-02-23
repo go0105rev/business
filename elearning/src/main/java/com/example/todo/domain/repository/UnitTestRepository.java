@@ -1,56 +1,23 @@
 package com.example.todo.domain.repository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Param;
 
 import com.example.todo.domain.model.UnitTest;
 
-@Repository
-public class UnitTestRepository implements UnitTestRepos{
-    // public class UnitTestRepImpl implements UnitTestRepository {
+public interface UnitTestRepository {
 
-    private static final Map<String, UnitTest> Maps = new ConcurrentHashMap<String, UnitTest>();
+    List<UnitTest> findAll();
+    
+    List<UnitTest> findBySnum(@Param("userId")String userId, @Param("quesNum")String quesNum);
 
-    @Override
-    public List<UnitTest> findAll() {
-        
-        return new ArrayList<>(Maps.values());
-    }
+    void create(UnitTest enitity);
 
-    @Override
-    public List<UnitTest> findBySnum(String userId, String quesNum) {
-        List<UnitTest> result = new ArrayList<>();
-        Maps.entrySet().forEach(v->{
-            if(v.getValue().getQuesNum().equals(quesNum) && v.getValue().getUserId().equals(userId)) {
-                result.add(v.getValue());
-            }
-        });
-        return result;
-    }
+    void updateBySnum(long version, @Param("userId")String userId, @Param("quesNum")String quesNum);
+    
+    long countBySourceNum(@Param("sNum")String sNum);
 
-    @Override
-    public boolean isSourceNum(String sNum) {
-        return Maps.containsKey(sNum);
-    }
-
-    @Override
-    public void create(UnitTest entity) {
-        Maps.put(entity.getSourceId(), entity);
-    };
-
-    @Override
-    public void updateBySnum(long version, String userId, String quesNum) {
-
-        Maps.forEach((k,v) ->{
-            if(k.startsWith(userId+quesNum)) {
-                v.setVersion(version);
-            }
-        });
-    }
-
+    Long nextNum(@Param("year")String year);
 
 }

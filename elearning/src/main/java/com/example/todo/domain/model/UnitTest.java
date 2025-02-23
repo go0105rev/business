@@ -1,6 +1,5 @@
 package com.example.todo.domain.model;
 
-import java.io.InputStream;
 import java.util.Date;
 
 public class UnitTest {
@@ -11,22 +10,21 @@ public class UnitTest {
 
     private String quesNum;
 
-    private long version;
+    private short status;
 
-    private InputStream source;
+    private Date savetime;
 
-    private Date saveTime;
+    // TODO 消したい
+    private String strsavetime;
 
-    // TODO 消したい。
-    private String strSaveTime;
+    private double size;
 
-    private long size;
-
-    private long duration;
+    private double duration;
 
     private long score;
 
-    
+    private byte[] source;
+
     public String getSourceId() {
         return sourceId;
     }
@@ -51,43 +49,43 @@ public class UnitTest {
         this.quesNum = quesNum;
     }
 
-    public long getVersion() {
-        return version;
+    public short getStatus() {
+        return status;
     }
 
-    public void setVersion(long version) {
-        this.version = version;
+    public void setStatus(short status) {
+        this.status = status;
     }
 
-    public InputStream getSource() {
+    public byte[] getSource() {
         return source;
     }
 
-    public void setSource(InputStream source) {
+    public void setSource(byte[] source) {
         this.source = source;
     }
 
     public Date getSaveTime() {
-        return saveTime;
+        return savetime;
     }
 
-    public void setSaveTime(Date saveTime) {
-        this.saveTime = saveTime;
+    public void setSaveTime(Date savetime) {
+        this.savetime = savetime;
     }
 
-    public long getSize() {
+    public double getSize() {
         return size;
     }
 
-    public void setSize(long size) {
+    public void setSize(double size) {
         this.size = size;
     }
 
-    public long getDuration() {
+    public double getDuration() {
         return duration;
     }
 
-    public void setDuration(long duration) {
+    public void setDuration(double duration) {
         this.duration = duration;
     }
 
@@ -100,20 +98,19 @@ public class UnitTest {
     }
 
     public String getStrSaveTime() {
-        return strSaveTime;
+        return strsavetime;
     }
 
-    public void setStrSaveTime(String strSaveTime) {
-        this.strSaveTime = strSaveTime;
+    public void setStrSaveTime(String strsavetime) {
+        this.strsavetime = strsavetime;
     }
 
     @Override
     public String toString() {
-        return "UnitTest [userId=" + userId + ", quesNum=" + quesNum
-                + ", version=" + version + ", saveTime=" + saveTime
-                + ", strSaveTime=" + strSaveTime + ", size=" + size
+        return "UnitTest [sourceId=" + sourceId + ", userId=" + userId
+                + ", quesNum=" + quesNum + ", status=" + status + ", savetime="
+                + savetime + ", strsavetime=" + strsavetime + ", size=" + size
                 + ", duration=" + duration + ", score=" + score + "]";
     }
 
-    
 }

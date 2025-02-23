@@ -140,6 +140,11 @@
         </dependency>
              REMOVE THIS LINE IF YOU USE JPA -->
         <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
             <groupId>org.terasoluna.gfw</groupId>
             <artifactId>terasoluna-gfw-mybatis3-dependencies</artifactId>
             <type>pom</type>
