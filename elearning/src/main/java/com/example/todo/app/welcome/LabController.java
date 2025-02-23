@@ -20,10 +20,11 @@ import org.terasoluna.gfw.common.message.ResultMessage;
 import org.terasoluna.gfw.common.message.ResultMessages;
 
 import com.example.todo.app.mapper.LabMapper;
+import com.example.todo.app.mapper.LabSession;
 import com.example.todo.domain.model.Content;
 import com.example.todo.domain.model.Lab;
-import com.example.todo.domain.model.LabSession;
 import com.example.todo.domain.model.UnitTest;
+import com.example.todo.domain.service.UnitTestOutput;
 import com.example.todo.domain.service.UnitTestServiceImpl;
 
 @Controller
@@ -86,11 +87,8 @@ public class LabController {
     @GetMapping(value = "/scope/ques")
     public String labsDetail(LabMapper input, Model model, LabSession session) {
 
-        model.addAttribute(session);
-
-        Content result = service.findDetail(input.getQuesNum());
+        Content result = service.findDetail(session.getQuesNum());
         if (result != null) {
-            model.addAttribute("quesName", result.getQuesName());
             model.addAttribute("content", result.getDetail());
             model.addAttribute("rule", Arrays.asList(result.getRule().split(
                     ",")));
@@ -98,12 +96,14 @@ public class LabController {
             throw new IllegalArgumentException();
         }
 
-        List<UnitTest> unitTest = service.findBySnum(input.getUserId(), input
+        List<UnitTest> unitTest = service.findBySnum(session.getUserId(), session
                 .getQuesNum());
         int cnt = unitTest.size();
 
         model.addAttribute("output", unitTest);
         model.addAttribute("cnt", cnt);
+        session.setQuesName(result.getQuesName());
+        model.addAttribute(session);
 
         return "lab";
     }
@@ -118,11 +118,7 @@ public class LabController {
      */
     @PostMapping("/commit")
     public String sourceCommit(@Valid LabMapper input, BindingResult validInput,
-            Model model, RedirectAttributes attribute) {
-
-        LabMapper redirectInput = new LabMapper();
-        redirectInput.setQuesNum(input.getQuesNum());
-        redirectInput.setUserId(input.getUserId());
+            Model model, LabSession session,RedirectAttributes attribute) {
 
         if (validInput.hasErrors()) {
             return "redirect:/codeLearn/lab/scope/ques";
@@ -131,17 +127,32 @@ public class LabController {
         }
 
         try {
-            service.execute(input);
+            service.execute(input,session.getQuesNum(),session.getUserId());
         } catch (BusinessException e) {
             model.addAttribute(e.getResultMessages());
             return "redirect:/codeLearn/lab/scope/ques";
         }
 
-        attribute.addFlashAttribute(redirectInput);
         attribute.addFlashAttribute(ResultMessages.success().add(ResultMessage
                 .fromText("commit Successfully!")));
 
         return "redirect:/codeLearn/lab/scope/ques";
     }
 
+    /**
+     * 回答評価詳細。
+     * @param ques
+     * @param scope
+     * @param input
+     * @param model
+     * @return
+     */
+    @GetMapping(value = "/detail")
+    public String toDetail(LabMapper input, Model model, LabSession session) {
+
+        UnitTestOutput unitTest = service.findSource(input.getSourceId());
+        model.addAttribute("output", unitTest);
+
+        return "labDetail";
+    }
 }

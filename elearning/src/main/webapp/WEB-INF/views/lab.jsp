@@ -140,7 +140,7 @@
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
-                    <h3>${quesName}</h3>
+                    <h3>${labSession.quesNum}：${labSession.quesName}</h3>
                     <h4>問題</h4>
                         <div class="subtexts">${content}</div>
                     <h4>制約（ルール）</h4>
@@ -155,8 +155,6 @@
                             action="${pageContext.request.contextPath}/codeLearn/lab/commit"
                             method="post" modelAttribute="labMapper">
                             <form:errors class="alert-error" path="context" />
-                            <form:input type="hidden" value="${labSession.quesNum}" path="quesNum" />
-                            <form:input type="hidden" value="${account.userId}" path="userId" />
                             <form:textarea class="area" path="context"/>
                             <form:button>commit</form:button>
                         </form:form>
@@ -170,7 +168,7 @@
                             <c:if test="${cnt > 0}">
                                 <c:forEach items="${output}" var="units">
                                     <tr>
-                                        <td>${f:h(units.sourceId)}</td>
+                                        <td><a href="${pageContext.request.contextPath}/codeLearn/lab/detail?sourceId=${f:h(units.sourceId)}">${f:h(units.sourceId)}</a></td>
                                         <td>${f:h(units.score)} 点</td>
                                         <td>${f:h(units.size)} byte</td>
                                         <td>${f:h(units.duration)} ms</td>

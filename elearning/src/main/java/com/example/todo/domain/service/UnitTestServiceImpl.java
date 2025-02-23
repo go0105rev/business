@@ -9,6 +9,7 @@ import java.util.List;
 
 import jakarta.inject.Inject;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 
 import com.example.todo.app.common.handler.JavaFileHandler;
@@ -44,18 +45,18 @@ public class UnitTestServiceImpl {
         return ques.findDetail(a);
     }
 
-    public UnitTest execute(LabMapper input) {
+    public UnitTest execute(LabMapper input,String quesNum,String userId) {
 
         try {
             /* レコード新規作成 */
             UnitTest entity = new UnitTest();
-            entity.setQuesNum(input.getQuesNum());
+            entity.setQuesNum(quesNum);
             // InputStream is = IOUtils.toInputStream(input.getContext(), "UTF-8");
             byte[] is = input.getContext().getBytes("UTF-8");
             entity.setSource(is);
             entity.setSize(is.length);
             entity.setSaveTime(new Date());
-            entity.setUserId(input.getUserId());
+            entity.setUserId(userId);
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String strDate = dateFormat.format(entity.getSaveTime());
@@ -66,17 +67,11 @@ public class UnitTestServiceImpl {
             String sourceId=y+m+String.format("%07d",repository.nextNum(y));
             entity.setSourceId(sourceId);
 
-            // repository.updateBySnum(1,entity.getUserId(),entity.getQuesNum());
-
             repository.create(entity);
 
             JavaFileHandler fl = new JavaFileHandler("\\home\\codeLearn\\"
                     + entity.getUserId() + "\\" + sourceId);
             fl.create(input.getContext().getBytes());
-
-            /* ソーステスト */
-
-            /* テスト結果の更新 */
 
             return entity;
 
@@ -91,6 +86,32 @@ public class UnitTestServiceImpl {
 
     public List<UnitTest> findBySnum(String userId, String quesNum) {
         return repository.findBySnum(userId, quesNum);
+    }
+
+    public UnitTestOutput findSource(String sourceId) {
+
+        UnitTest v =repository.findSource(sourceId);
+
+        UnitTestOutput result = new UnitTestOutput();
+        String a = IOUtils.toString(v.getSource(), "UTF-8");
+        result.setSource(a);
+        result.setSourceId(sourceId);
+        result.setScore(v.getScore());
+        result.setDuration((long)v.getDuration());
+        result.setSize((long)v.getSize());
+        
+        if(v.getStatus()==0) {
+            result.setStatus("評価中");
+        }else if(v.getStatus()==1){
+            result.setStatus("全クリア");
+        }else if(v.getStatus()==2) {
+            result.setStatus("一部クリア");
+        }else {
+            result.setStatus("異常");
+        }
+
+        
+        return result;
     }
 
 }

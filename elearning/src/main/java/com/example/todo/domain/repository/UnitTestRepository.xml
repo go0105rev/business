@@ -62,7 +62,20 @@
     </update>
 
     <select id="nextNum" resultType="_long">
-        select nextval('seq_unit_test_${year}')
+        SELECT nextval('seq_unit_test_${year}')
+    </select>
+
+    <select id="findSource" resultType="com.example.todo.domain.model.UnitTest">
+        SELECT
+            source,
+            status,
+            size,
+            duration,
+            score
+        FROM
+            unit_test
+        WHERE
+            source_id = #{sourceId}
     </select>
 
 </mapper>
