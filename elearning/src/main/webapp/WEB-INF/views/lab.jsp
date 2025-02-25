@@ -32,15 +32,18 @@
 <script src="${pageContext.request.contextPath}/resources/app/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
 <style>
 .area{
-    border:2px solid lightcoral;
     outline:none;
     width: 100%;
-    padding: 5px;
-    box-sizing: border-box;
     line-height: normal;
     height: 400px;
-    background: #f2f2f2;
-    display: block;
+    margin: 1em 0; /* ブロック前後の余白 */
+    padding: 1em; /* ブロック内の余白 */
+    border-radius: 5px; /* 角丸 */
+    background: #25292f;
+    color: #fff;
+    white-space: pre-wrap; /* はみ出たときに折り返す */
+    overflow-x: auto; /* 横スクロール有効化 */
+    webkit-overflow-scrolling: touch; /* モバイルで滑る可能 */
 }
 .alert-error {
     background-color: #c60f13;
@@ -155,7 +158,7 @@
                             action="${pageContext.request.contextPath}/codeLearn/lab/commit"
                             method="post" modelAttribute="labMapper">
                             <form:errors class="alert-error" path="context" />
-                            <form:textarea class="area" path="context"/>
+                            <form:textarea class="area" spellcheck="false" path="context"/>
                             <form:button>commit</form:button>
                         </form:form>
                     </div>
