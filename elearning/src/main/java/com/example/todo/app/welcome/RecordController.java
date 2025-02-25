@@ -9,15 +9,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.example.todo.app.mapper.LabMapper;
 import com.example.todo.app.mapper.RecordMapper;
+import com.example.todo.app.mapper.RecordSession;
 import com.example.todo.domain.model.Lab;
 import com.example.todo.domain.service.RecordOutput;
 import com.example.todo.domain.service.RecordServiceImpl;
 
 @Controller
 @RequestMapping(value = "codeLearn/record")
+@SessionAttributes(types = {RecordSession.class})
 public class RecordController {
 
     @Inject
@@ -29,20 +32,30 @@ public class RecordController {
         return input;
     }
 
+    @ModelAttribute(value = "resordSession")
+    public RecordSession setSession() {
+        return new RecordSession();
+    }
+
     @GetMapping(value = "/")
     public String recodes(Model model) {
         List<Lab> result = service.findTittle();
-        model.addAttribute("output", result);
+//        model.addAttribute("output", result);
         model.addAttribute("scope", true);
+        RecordSession session = new RecordSession();
+        session.setLab(result);
+        model.addAttribute(session);
+        
 
         return "recordMenu";
     }
 
     @GetMapping(value = "/scope")
-    public String recodeQues(Model model) {
-        RecordOutput result = service.findAllRecord();
-        model.addAttribute("size", result.getUnitTest().size());
-        model.addAttribute("output", result.getUnitTest());
+    public String recodeQues(RecordMapper input,Model model,RecordSession session) {
+        List<RecordOutput> result = service.findAllRecord(input.getScope(),session.getTeamId());
+        model.addAttribute("scope", false);
+        model.addAttribute("size", result.size());
+        model.addAttribute("output", result);
 
         return "recordMenu";
     }
@@ -50,13 +63,12 @@ public class RecordController {
     @GetMapping(value = "/detail")
     public String toDetail(LabMapper input, Model model) {
         service.findDetail();
-
         return "detail";
     }
 
     @GetMapping(value = "/back")
     public String back() {
 
-        return "redirect:/codeLearn/record/";
+        return "redirect:/codeLearn/record/scope";
     }
 }

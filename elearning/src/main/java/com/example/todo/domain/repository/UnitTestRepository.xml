@@ -78,4 +78,32 @@
             source_id = #{sourceId}
     </select>
 
+    <select id="findBestByTeam" resultType="com.example.todo.domain.model.UnitTest">
+        SELECT
+            c.ques_num,
+            u.source_id,
+            u.user_id,
+            COALESCE(u.size,0) as size,
+            COALESCE(u.duration,0) as duration,
+            u.strsavetime,
+            COALESCE(u.status,0) as status,
+            COALESCE(u.score,0) as score
+        FROM
+            (select * from unit_test
+                where user_id in (SELECT user_id from user_inf where team_id=#{teamId})) u
+        RIGHT OUTER JOIN
+            content c
+        ON
+            u.ques_num = c.ques_num
+        WHERE
+            u.user_id is null  AND c.scope=#{scope} OR
+            (CONCAT(u.ques_num,u.score,u.strsavetime) IN
+            (SELECT CONCAT(u.ques_num,MAX(score),MIN(strsavetime)) FROM unit_test u
+                RIGHT OUTER JOIN content c ON u.ques_num = c.ques_num
+                WHERE u.user_id IN (SELECT user_id from user_inf where team_id=#{teamId})
+                    AND c.scope=#{scope}
+                GROUP BY u.ques_num)
+            )
+            ORDER BY ques_num ASC
+    </select>
 </mapper>

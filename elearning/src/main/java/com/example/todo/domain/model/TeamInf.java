@@ -11,6 +11,8 @@ public class TeamInf {
     private Date sDate;
 
     private Date eDate;
+    
+    private String access;
 
     
     public TeamInf(String teamId, String teamName, Date sDate, Date eDate) {
@@ -53,4 +55,13 @@ public class TeamInf {
         this.eDate = eDate;
     }
 
+    public String getAccess() {
+        return access;
+    }
+
+    public void setAccess(String access) {
+        this.access = access;
+    }
+
+    
 }

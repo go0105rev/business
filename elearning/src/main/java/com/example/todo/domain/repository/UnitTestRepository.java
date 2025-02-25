@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.example.todo.domain.model.Content;
 import com.example.todo.domain.model.UnitTest;
 
 public interface UnitTestRepository {
@@ -21,5 +22,7 @@ public interface UnitTestRepository {
     Long nextNum(@Param("year")String year);
 
     UnitTest findSource(@Param("sourceId")String sourceId);
+
+    List<UnitTest> findBestByTeam(@Param("quesNum")List<Content> quesNum,@Param("teamId")String teamId,@Param("scope") long scope);
 
 }

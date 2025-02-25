@@ -14,4 +14,6 @@ public interface QuesRepository {
 
     Content findDetail(@Param("quesNum")String quesNum);
 
+    List<Content>  findQues(long scope);
+
 }

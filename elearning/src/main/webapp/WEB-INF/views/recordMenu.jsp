@@ -120,24 +120,43 @@
                 <div class="container-fluid">
                     <h4>軌跡</h4>
                         <br>
-                        <table align="center" border="5">
-                            <tr><th width="10%"> チーム名 </th>
-                            <th width="10%"> ユーザ名 </th>
-                            <th width="25%"> スコープ </th>
-                            <th width="25%"> 問題 </th>
-                            <th width="5%"> スコア </th>
-                            <th width="15%"> 更新日付 </th></tr>
-                            <c:if test="${size > 0}">
-                                <c:forEach items="${output}" var="record">
-                                    <tr><td>${f:h(record.teamName)} </td>
-                                    <td>${f:h(record.userName)} </td>
-                                    <td>${f:h(record.scopeName)}  </td>
-                                    <td>${f:h(record.quesName)} </td>
-                                    <td>${f:h(record.score)} </td>
-                                    <td>${f:h(record.strSaveTime)} <a href="${pageContext.request.contextPath}/codeLearn/record/detail">詳細！</a></td></tr>
+                        <c:forEach items="${recordSession.labInf}" var="lab">
+                            <li><a href="${pageContext.request.contextPath}/codeLearn/record/scope?scope=${f:h(lab.scope)}">${f:h(lab.scopeName)}</a></li>
+                        </c:forEach>
+                        <c:choose>
+                            <c:when test="${scope}">
+                                <h3>LABを選び、各チームの状況を確認しましょう～</h3>
+                            </c:when>
+                            <c:otherwise>
+                                <c:forEach items="${output}" var="records">
+                                        <h3>${f:h(records.teamId)}：${f:h(records.teamName)}</h3>
+                                    <div class="container-fluid">
+                                        <div class="subtexts">スコア　　：${f:h(records.teamScore)} 点</div>
+                                        <div class="subtextBlue">評価中　　：${f:h(records.wait)} 件</div>
+                                        <div class="subtextGreen">クリア　　：${f:h(records.clear)} 件</div>
+                                        <div class="subtextBrond">部分クリア：${f:h(records.warn)} 件</div>
+                                        <div class="subtextRed">エラー　　：${f:h(records.error)} 件</div>
+                                    </div>
+                                    <div class="container-fluid">
+                                        <table align="center" border="5">
+                                            <tr><th>お題</th><th>プレイヤー</th><th>試験結果</th><th>スコア</th><th>サイズ</th><th>実行時間</th></tr>
+                                            <c:if test="${size > 0}">
+                                            <c:forEach items="${records.unitTest}" var="r">
+                                                <tr>
+                                                <td>${f:h(r.quesName)}</td>
+                                                <td>${f:h(r.userName)}</td>
+                                                <td>${f:h(r.status)}</td>
+                                                <td>${f:h(r.score)} 点</td>
+                                                <td>${f:h(r.size)} byte</td>
+                                                <td>${f:h(r.duration)} ms</td>
+                                                </tr>
+                                            </c:forEach>
+                                            </c:if>
+                                        </table>
+                                    </div>
                                 </c:forEach>
-                            </c:if>
-                        </table>
+                            </c:otherwise>
+                        </c:choose>
                 </div>
             </div>
             <footer class="footer">
