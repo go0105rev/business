@@ -1,9 +1,4 @@
-DROP TABLE USER_INF;
-DROP TABLE LAB;
-DROP TABLE CONTENT;
-DROP TABLE TEAM_INF;
-DROP TABLE UNIT_TEST;
-
+DROP TABLE IF EXISTS USER_INF;
 CREATE TABLE USER_INF(
     team_id char(5) not null,
     user_id varchar(10) not null,
@@ -17,6 +12,7 @@ CREATE TABLE USER_INF(
     PRIMARY KEY(user_id)
 );
 
+DROP TABLE IF EXISTS LAB;
 CREATE TABLE LAB(
     scope INTEGER not null,
     scope_name TEXT not null,
@@ -25,6 +21,7 @@ CREATE TABLE LAB(
     PRIMARY KEY(scope)
 );
 
+DROP TABLE IF EXISTS CONTENT;
 CREATE TABLE CONTENT(
     ques_num char(8) not null,
     scope BIGINT,
@@ -37,14 +34,17 @@ CREATE TABLE CONTENT(
     PRIMARY KEY(ques_num)
 );
 
+DROP TABLE IF EXISTS TEAM_INF;
 CREATE TABLE TEAM_INF(
     team_id char(5) not null,
     team_name varchar(50) not null,
     s_date TIMESTAMP,
     e_date TIMESTAMP,
+    access varchar,
     PRIMARY KEY(team_id)
 );
 
+DROP TABLE IF EXISTS UNIT_TEST;
 CREATE TABLE UNIT_TEST(
     source_id char(25) not null,
     user_id varchar(10) not null,
@@ -59,8 +59,8 @@ CREATE TABLE UNIT_TEST(
     PRIMARY KEY(source_id)
 );
 
-DROP SEQUENCE seq_unit_test_2025;
+DROP SEQUENCE IF EXISTS seq_unit_test_2025;
 CREATE SEQUENCE IF NOT EXISTS seq_unit_test_2025 CYCLE INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 99999 CACHE 1;
 
-DROP SEQUENCE seq_unit_test_2026;
+DROP SEQUENCE IF EXISTS seq_unit_test_2026;
 CREATE SEQUENCE IF NOT EXISTS seq_unit_test_2026 CYCLE INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 99999 CACHE 1;

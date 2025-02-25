@@ -1,17 +1,17 @@
 DELETE FROM UNIT_TEST;
-INSERT INTO UNIT_TEST(source_id,user_id,ques_num,status,source,saveTime,strSaveTime,size,duration,score) VALUES
-('A9999999999999999999','e000001','L001002',0,default,TO_DATE('26/01/2025', 'DD/MM/YYYY'),'20240126215500000',1024,default,0),
-('A9999999999999999998','e000001','L001002',0,default,TO_DATE('26/01/2025', 'DD/MM/YYYY'),'20240126215500000',1024,default,0),
-('A9999999999999999997','e000001','L001003',0,default,TO_DATE('26/01/2025', 'DD/MM/YYYY'),'20240126215500000',1024,default,0),
-('A9999999999999999996','e000002','L001002',0,default,TO_DATE('26/01/2025', 'DD/MM/YYYY'),'20240126215500000',1024,default,0)
-;
+-- INSERT INTO UNIT_TEST(source_id,user_id,ques_num,status,source,saveTime,strSaveTime,size,duration,score) VALUES
+-- ('A9999999999999999999','e000001','L001002',0,default,TO_DATE('26/01/2025', 'DD/MM/YYYY'),'20240126215500000',1024,default,0),
+-- ('A9999999999999999998','e000001','L001002',0,default,TO_DATE('26/01/2025', 'DD/MM/YYYY'),'20240126215500000',1024,default,0),
+-- ('A9999999999999999997','e000001','L001003',0,default,TO_DATE('26/01/2025', 'DD/MM/YYYY'),'20240126215500000',1024,default,0),
+-- ('A9999999999999999996','e000002','L001002',0,default,TO_DATE('26/01/2025', 'DD/MM/YYYY'),'20240126215500000',1024,default,0)
+-- ;
 
 DELETE FROM LAB;
 INSERT INTO LAB(scope,scope_name,sdate,acess_flg) VALUES
-(1, '博物館大冒険', 2025-02-23 00:00:00,0),
-(2, 'オフィス危機', 2025-02-23 00:00:00,0),
-(3, '水族館デート', 2025-02-23 00:00:00,0),
-(4, '遊園地うろうろ', 2025-02-23 00:00:00,0);
+(1, '博物館大冒険', '2025-02-23 00:00:00',0),
+(2, 'オフィス危機', '2025-02-23 00:00:00',0),
+(3, '水族館デート', '2025-02-23 00:00:00',0),
+(4, '遊園地うろうろ', '2025-02-23 00:00:00',0);
 
 DELETE FROM CONTENT;
 INSERT INTO CONTENT(ques_num,scope,ques,ques_name,detail,rule,sdate,acess_flg) VALUES
@@ -49,7 +49,7 @@ insert into USER_INF(team_id,user_id,password,user_name,gender,age,exp,s_date) v
 ('G0003','rev0201','{pbkdf2@SpringSecurity_v5_8}61a373fb7cc05670bb422b5e770e3b27e0009e46b5909dc55af26751312935ae8ecbfe868049b8b004bf6ce46e5b944c','陳郁文',2,30,2,CURRENT_TIMESTAMP);
 
 DELETE FROM TEAM_INF;
-insert into TEAM_INF(team_id,team_name,s_date,e_date) values
-('G0001', '爆上戦隊',CURRENT_TIMESTAMP,null),
-('G0002', '特捜戦隊',CURRENT_TIMESTAMP,null),
-('G0003', '秘密戦隊',CURRENT_TIMESTAMP,null);
+insert into TEAM_INF(team_id,team_name,s_date,e_date,access) values
+('G0001', '爆上戦隊',CURRENT_TIMESTAMP,null,'0'),
+('G0002', '特捜戦隊',CURRENT_TIMESTAMP,null,'1,2,3'),
+('G0003', '秘密戦隊',CURRENT_TIMESTAMP,null,'1,2,3');
