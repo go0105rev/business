@@ -37,8 +37,16 @@ INSERT INTO CONTENT(ques_num,scope,ques,ques_name,detail,rule,sdate,acess_flg) V
 ('L004005', 4, 5, 'XXXXXXXX', '', '', '2025-02-23 00:00:00',0);
 
 DELETE FROM USER_INF;
-insert into USER_INF(team_id,user_id,password,user_name,gender,age,exp,s_date,e_date) values
-('G0001', 'Root999', '{pbkdf2@SpringSecurity_v5_8}08213e88e589717c40102a8d800c5dadf52435998ad2e2b924860062894dbb3a47a98d980dc1975862cd5b3925db1f3e', '工藤ルート',1, 99, 99,CURRENT_TIMESTAMP,null);
+insert into USER_INF(team_id,user_id,password,user_name,gender,age,exp,s_date) values
+('G0001','Root999','{pbkdf2@SpringSecurity_v5_8}08213e88e589717c40102a8d800c5dadf52435998ad2e2b924860062894dbb3a47a98d980dc1975862cd5b3925db1f3e','工藤ルート',1,99,99,CURRENT_TIMESTAMP),
+('G0003','rev0101','{pbkdf2@SpringSecurity_v5_8}37169250c92b93195560f5842319f9f768307c423ac148f6e45c4affb4f2249c006916932df5fcb680d22f43a3cf8310','松田悟',1,45,23,CURRENT_TIMESTAMP),
+('G0002','rev0102','{pbkdf2@SpringSecurity_v5_8}38ecc346632b181a4ffa6096baa8aed4c75c5174786648dce263e0a1a8dfd25fca828256aa6f33f82595ddc0bd8912ef','磯部航太郎',1,40,18,CURRENT_TIMESTAMP),
+('G0003','rev0103','{pbkdf2@SpringSecurity_v5_8}83be520fc795042d4c840a79b09d0a27f2d0578b1ce22f9f18cc2ecc7ad47842245b3f537b17ada0051a66d6e704829c','坂本壮',1,47,25,CURRENT_TIMESTAMP),
+('G0002','rev0301','{pbkdf2@SpringSecurity_v5_8}139e69e45da8b5433e4e7c2ee7abf145dec78c43544d277540fbfee6e02bc249b2f8570f5132052330e767deb5c0e340','加藤勇吹',1,27,1,CURRENT_TIMESTAMP),
+('G0001','rev0104','{pbkdf2@SpringSecurity_v5_8}f8f04f328ee0aae0726462e2ed0c6ab508f52ecb4707a906d4a30c12b79a624b4e8ffbe1a62ac40bb5998555de1f878e','呉聖仕',1,29,7,CURRENT_TIMESTAMP),
+('G0003','rev0302','{pbkdf2@SpringSecurity_v5_8}39e6820da4891cdf5a24ce9173fc38a86d6773f5c93a1cdb1ccd828f3da6f8533e921dd19f0cf13adb57cbd5d5cd8690','岩崎晴菜',2,21,1,CURRENT_TIMESTAMP),
+('G0001','rev0303','{pbkdf2@SpringSecurity_v5_8}6c4eae717b759bbf3cb733d5fdfec3bfe3e672e0a782e3d5c317ca4f626d27b4ebb9b5c1eb118ac79bc33a459fe13fe1','千葉洸太朗',1,20,1,CURRENT_TIMESTAMP),
+('G0003','rev0201','{pbkdf2@SpringSecurity_v5_8}61a373fb7cc05670bb422b5e770e3b27e0009e46b5909dc55af26751312935ae8ecbfe868049b8b004bf6ce46e5b944c','陳郁文',2,30,2,CURRENT_TIMESTAMP);
 
 DELETE FROM TEAM_INF;
 insert into TEAM_INF(team_id,team_name,s_date,e_date) values

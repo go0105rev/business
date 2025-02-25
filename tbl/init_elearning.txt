@@ -8,7 +8,7 @@ CREATE TABLE USER_INF(
     team_id char(5) not null,
     user_id varchar(10) not null,
     password varchar not null,
-    user_name char(20) not null,
+    user_name varchar(20) not null,
     gender SMALLINT not null,
     age INTEGER,
     exp INTEGER,
@@ -29,7 +29,7 @@ CREATE TABLE CONTENT(
     ques_num char(8) not null,
     scope BIGINT,
     ques BIGINT,
-    ques_name char(50) not null,
+    ques_name varchar(50) not null,
     detail TEXT,
     rule TEXT,
     sdate TIMESTAMP,
@@ -39,7 +39,7 @@ CREATE TABLE CONTENT(
 
 CREATE TABLE TEAM_INF(
     team_id char(5) not null,
-    team_name char(50) not null,
+    team_name varchar(50) not null,
     s_date TIMESTAMP,
     e_date TIMESTAMP,
     PRIMARY KEY(team_id)
@@ -58,3 +58,9 @@ CREATE TABLE UNIT_TEST(
     score BIGINT,
     PRIMARY KEY(source_id)
 );
+
+DROP SEQUENCE seq_unit_test_2025;
+CREATE SEQUENCE IF NOT EXISTS seq_unit_test_2025 CYCLE INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 99999 CACHE 1;
+
+DROP SEQUENCE seq_unit_test_2026;
+CREATE SEQUENCE IF NOT EXISTS seq_unit_test_2026 CYCLE INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 99999 CACHE 1;
