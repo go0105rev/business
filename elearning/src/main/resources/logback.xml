@@ -9,9 +9,9 @@
     </appender>
 
     <appender name="APPLICATION_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${app.log.dir:-log}/todo-application.log</file>
+        <file>/var/log/elearn_AP.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${app.log.dir:-log}/todo-application-%d{yyyyMMdd}.log</fileNamePattern>
+            <fileNamePattern>/var/log/elearn_AP-%d{yyyyMMdd}.log</fileNamePattern>
             <maxHistory>7</maxHistory>
         </rollingPolicy>
         <encoder>
@@ -21,9 +21,9 @@
     </appender>
 
     <appender name="MONITORING_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${app.log.dir:-log}/todo-monitoring.log</file>
+        <file>/var/log/elearn_MONI.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${app.log.dir:-log}/todo-monitoring-%d{yyyyMMdd}.log</fileNamePattern>
+            <fileNamePattern>/var/log/elearn_MONI-%d{yyyyMMdd}.log</fileNamePattern>
             <maxHistory>7</maxHistory>
         </rollingPolicy>
         <encoder>
