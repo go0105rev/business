@@ -41,20 +41,11 @@ public class codeTestServiceImpl extends Tasklets {
             String target = t.getSourceId();
             logger.debug(target + "[start]");
 
-            // TOOD マルチスレッドを実現し、数制限が不要
-//            long a = repository.countAsQuesNum(t.getQuesNum(), t.getUserId());
-//            if (a > 1) {
-//                logger.error(
-//                        "[ONLY CAN HAVE ONE OF SINGLE QUESNUM SINGLE USERID]: "
-//                                + target);
-//                return;
-//            }
-
             String path = "/home/codeLearn/" + t.getUserId() + "/" + target
                     + "/";
             List<String> editClass = new ArrayList<>();
             editClass.add("javac");
-            editClass.add(path + "main.java");
+            editClass.add(path + "Main.java");
             execute(new ProcessBuilder(editClass));
 
             try {
@@ -62,7 +53,7 @@ public class codeTestServiceImpl extends Tasklets {
                 cmd.add("java");
                 cmd.add("-cp");
                 cmd.add(path);
-                cmd.add("main");
+                cmd.add("Main");
 
                 File file = new File("/home/codeLearn/evaculation/" + t
                         .getQuesNum() + ".csv");
@@ -71,7 +62,11 @@ public class codeTestServiceImpl extends Tasklets {
                 // Collections.copy(result,csv);
 
                 for (TestResult i : csv) {
+                    long total = Runtime.getRuntime().totalMemory();
+                    long sMem = total-Runtime.getRuntime().freeMemory();
                     Process process = execute(new ProcessBuilder(cmd), i);
+                    long eMem = total-Runtime.getRuntime().freeMemory();
+                    long exeMem=(eMem-sMem)/ 1024;
                     unitTest(target, i, process);
                 }
                 evaculate(target, csv);
@@ -130,6 +125,7 @@ public class codeTestServiceImpl extends Tasklets {
 
         long miliSec = process.info().totalCpuDuration().get().get(
                 ChronoUnit.NANOS) / 1000000;
+        
         int exit = process.exitValue();
         if (exit != 0) {
             try (BufferedReader errStream = process.errorReader(
