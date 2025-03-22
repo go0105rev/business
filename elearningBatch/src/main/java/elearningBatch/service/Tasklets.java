@@ -34,13 +34,15 @@ public abstract class Tasklets implements Tasklet {
         }
 
         try {
-
+            logger.info("バッチ処理開始します。");
             Status result = process(params);
             logger.info(result.name());
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             // TODO AOPでまとめたい。
             logger.error("[UNEXCEPT ERROR] --> ", e);
+        }finally{
+            logger.info("バッチ処理終了します。");
         }
 
         return RepeatStatus.FINISHED;
