@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
 <configuration>
+
+    <property name="rotate.normallog" value="yyyy-MM-dd"/>
+    <property name="history.normallog" value="4320"/>
+    <property name="format" value="date:%d{yyyy/MM/dd HH:mm:ss}\tthread:%thread\tX-track:%X{X-track}\tlevel:%level\tid:%X{jobId}%X{sourceId}%replace(%msg){'(\r\n|\r|\n)','$1  '}%n%replace(%replace(%xEx){'(\r\n|\r|\n)','$1  '}){'  $',''}%nopex"/>
 
     <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>[%d{yyyy/MM/dd HH:mm:ss}] [%thread] [%-22logger{22}] [%-5level] %replace(%msg){'(\r\n|\r|\n)','$1  '}%n%replace(%replace(%xEx){'(\r\n|\r|\n)','$1  '}){'  $',''}%nopex</pattern>
+            <pattern><![CDATA[${format}]]></pattern>
         </encoder>
     </appender>
 
+    <appender name="normalLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${application.normallog}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${application.normallog}_%d{${rotate.normallog}}</fileNamePattern>
+            <maxHistory>${history.normallog}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern><![CDATA[${format}]]></pattern>
+        </encoder>
+    </appender>
 <!--
     <logger name="org.springframework" level="ERROR" />
     <logger name="org.apache.ibatis" level="ERROR" />
@@ -24,5 +40,6 @@
 
     <root level="INFO">
         <appender-ref ref="consoleLog" />
+        <appender-ref ref="normalLog" />
     </root>
 </configuration>
