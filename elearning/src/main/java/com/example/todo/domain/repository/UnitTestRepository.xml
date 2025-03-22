@@ -29,8 +29,7 @@
                 user_id = #{userId}
             AND ques_num = #{quesNum}
         ORDER BY
-            ques_num ASC,
-            status ASC
+            savetime DESC
     </select>
 
     <update id="create">
