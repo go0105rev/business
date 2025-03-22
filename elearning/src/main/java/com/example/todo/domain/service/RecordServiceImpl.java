@@ -8,6 +8,7 @@ import jakarta.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.todo.domain.model.Content;
 import com.example.todo.domain.model.Lab;
@@ -21,6 +22,7 @@ import com.example.todo.domain.repository.UnitTestRepository;
 import com.example.todo.domain.repository.UserInfRepository;
 
 @Service
+@Transactional
 public class RecordServiceImpl {
 
     @Inject
