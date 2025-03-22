@@ -32,7 +32,7 @@ public class JavaFileHandler {
                 file.mkdirs();
             }
 
-            FileOutputStream fos = new FileOutputStream(filePath + "\\main.java");
+            FileOutputStream fos = new FileOutputStream(filePath + "Main.java");
             fos.write(input);
             fos.flush();
             fos.close();
