@@ -1,0 +1,8 @@
+psql -h localhost -p 5432 -U postgres -d postgres
+creat database elearning
+create role elearn_user with nosuperuser nocreatedb login password 'elearn_user';
+grant elearn_user to postgres;
+create schema elearn_user authorization elearn_user;
+revoke elearn_user from postgres;
+psql -U elearn_user -d elearning
+select current_timestamp;
