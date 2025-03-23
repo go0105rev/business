@@ -1,11 +1,14 @@
 package com.example.todo.domain.service;
 
+import java.util.List;
+
 import jakarta.inject.Inject;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 
 import com.example.todo.domain.model.UnitTest;
+import com.example.todo.domain.repository.QuesRepository;
 import com.example.todo.domain.repository.UnitTestRepository;
 
 @Service
@@ -13,8 +16,15 @@ public class MenuServiceImpl {
 
     @Inject
     UnitTestRepository repository;
+    
+    @Inject
+    QuesRepository content;
 
-    public UnitTestOutput findSource(String sourceId) {
+    public List<UnitTest> findAll() {
+        return repository.findAll();
+    }
+
+    public UnitTestOutput findSource(String quesNum, String sourceId) {
 
         UnitTest v = repository.findSource(sourceId);
 
@@ -25,6 +35,9 @@ public class MenuServiceImpl {
         result.setScore(v.getScore());
         result.setDuration((long) v.getDuration());
         result.setSize((long) v.getSize());
+        result.setQuesNum(quesNum);
+        String name = content.findDetail(quesNum).getQuesName();
+        result.setQuesName(name);
 
         if (v.getStatus() == 0) {
             result.setStatus("評価中");

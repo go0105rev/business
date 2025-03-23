@@ -128,7 +128,7 @@ pre {
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
-                    <h3>${labSession.quesNum}：${labSession.quesName}</h3>
+                    <h3>${output.quesNum}：${output.quesName}</h3>
                     <h4>【本質問のベストスコア】</h4>
                         <div class="subtexts">メンテナンス中～</div>
                     <h4>【情報】</h4>

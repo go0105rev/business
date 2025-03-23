@@ -6,13 +6,19 @@
 
     <select id="findAll" resultType="com.example.todo.domain.model.UnitTest">
         SELECT
-            *
+            ques_num,
+            source_id,
+            status,
+            strsavetime,
+            size,
+            duration,
+            score
         FROM
             unit_test
         ORDER BY
-            user_id ASC,
             ques_num ASC,
-            status ASC
+            savetime DESC,
+            user_id ASC
     </select>
 
     <select id="findBySnum" resultType="com.example.todo.domain.model.UnitTest">

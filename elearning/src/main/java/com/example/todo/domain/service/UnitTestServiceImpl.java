@@ -3,7 +3,6 @@ package com.example.todo.domain.service;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -99,10 +98,6 @@ public class UnitTestServiceImpl {
         } catch (IOException e) {
             throw new IllegalArgumentException();
         }
-    }
-
-    public Collection<UnitTest> findAll() {
-        return repository.findAll();
     }
 
     public List<UnitTest> findBySnum(String userId, String quesNum) {

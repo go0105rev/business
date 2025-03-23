@@ -100,8 +100,7 @@ public class LabController {
             throw new IllegalArgumentException();
         }
 
-        List<UnitTest> unitTest = service.findBySnum(session.getUserId(), session
-                .getQuesNum());
+        List<UnitTest> unitTest = service.findBySnum(session.getUserId(), session.getQuesNum());
         int cnt = unitTest.size();
 
         model.addAttribute("output", unitTest);
@@ -154,7 +153,7 @@ public class LabController {
     @GetMapping(value = "/detail")
     public String toDetail(LabMapper input, Model model, LabSession session) {
 
-        UnitTestOutput unitTest = menu.findSource(input.getSourceId());
+        UnitTestOutput unitTest = menu.findSource(session.getQuesNum(), input.getSourceId());
         model.addAttribute("output", unitTest);
 
         return "labDetail";
