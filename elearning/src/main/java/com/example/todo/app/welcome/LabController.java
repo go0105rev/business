@@ -24,6 +24,7 @@ import com.example.todo.app.mapper.LabSession;
 import com.example.todo.domain.model.Content;
 import com.example.todo.domain.model.Lab;
 import com.example.todo.domain.model.UnitTest;
+import com.example.todo.domain.service.MenuServiceImpl;
 import com.example.todo.domain.service.UnitTestOutput;
 import com.example.todo.domain.service.UnitTestServiceImpl;
 
@@ -34,6 +35,9 @@ public class LabController {
 
     @Inject
     UnitTestServiceImpl service;
+    
+    @Inject
+    MenuServiceImpl menu;
 
     @ModelAttribute
     public LabMapper setForm() {
@@ -150,7 +154,7 @@ public class LabController {
     @GetMapping(value = "/detail")
     public String toDetail(LabMapper input, Model model, LabSession session) {
 
-        UnitTestOutput unitTest = service.findSource(input.getSourceId());
+        UnitTestOutput unitTest = menu.findSource(input.getSourceId());
         model.addAttribute("output", unitTest);
 
         return "labDetail";
