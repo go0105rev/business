@@ -6,7 +6,7 @@
 <link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/resources/app/img/apple-icon.png">
 <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/app/img/favicon.ico">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Light Bootstrap Dashboard - Free Bootstrap 4 Admin Dashboard by Creative Tim</title>
+<title>Rev : coding Elearning</title>
 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 <!--     Fonts and icons     -->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -55,13 +55,13 @@
         <div class="sidebar" data-image="${pageContext.request.contextPath}/resources/app/img/sidebar-5.jpg">
             <div class="sidebar-wrapper">
                 <div class="logo">
-                    <a href="${pageContext.request.contextPath}/codeLearn/dashBoard" class="simple-text">
+                    <a href="${pageContext.request.contextPath}/codeLearn/menu/dashBoard?userId=${account.userId}" class="simple-text">
                         Code eLearning
                     </a>
                 </div>
                 <ul class="nav">
                     <li>
-                        <a class="nav-link" href="${pageContext.request.contextPath}/codeLearn/dashBoard?userId=${account.userId}">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/codeLearn/menu/dashBoard?userId=${account.userId}">
                             <i class="nc-icon nc-chart-pie-35"></i>
                             ダッシュボード
                         </a>
