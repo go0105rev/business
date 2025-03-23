@@ -57,7 +57,7 @@
                 </div>
                 <ul class="nav">
                     <li>
-                        <a class="nav-link" href="${pageContext.request.contextPath}/codeLearn/dashBoard">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/codeLearn/dashBoard?userId=${account.userId}">
                             <i class="nc-icon nc-chart-pie-35"></i>
                             ダッシュボード
                         </a>
@@ -69,7 +69,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="${pageContext.request.contextPath}/codeLearn/lesson/">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/codeLearn/lesson/?userId=${account.userId}">
                             <i class="nc-icon nc-notes"></i>
                             修業BOX
                         </a>
@@ -81,13 +81,13 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="${pageContext.request.contextPath}/codeLearn/contact/">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/codeLearn/contact/?userId=${account.userId}">
                             <i class="nc-icon nc-paper-2"></i>
                             お問い合わせ
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="${pageContext.request.contextPath}/codeLearn/news/">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/codeLearn/news/?userId=${account.userId}">
                             <i class="nc-icon nc-bell-55"></i>
                             お知らせ
                         </a>
