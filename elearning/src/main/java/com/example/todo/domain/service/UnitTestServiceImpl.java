@@ -18,10 +18,14 @@ import com.example.todo.app.common.handler.JavaFileHandler;
 import com.example.todo.app.mapper.LabMapper;
 import com.example.todo.domain.model.Content;
 import com.example.todo.domain.model.Lab;
+import com.example.todo.domain.model.TeamInf;
 import com.example.todo.domain.model.UnitTest;
+import com.example.todo.domain.model.UserInf;
 import com.example.todo.domain.repository.LabRepository;
 import com.example.todo.domain.repository.QuesRepository;
+import com.example.todo.domain.repository.TeamInfRepository;
 import com.example.todo.domain.repository.UnitTestRepository;
+import com.example.todo.domain.repository.UserInfRepository;
 
 @Service
 @Transactional
@@ -36,11 +40,20 @@ public class UnitTestServiceImpl {
     @Inject
     QuesRepository ques;
     
+    @Inject
+    UserInfRepository userInf;
+
+    @Inject
+    TeamInfRepository teamInf;
+
     @Value("${unit.test.path}")
     private String path;
 
-    public List<Lab> findTittle() {
-        return lab.findAll();
+    public List<Lab> findTittle(String userId) {
+        UserInf u = userInf.findUser(userId);
+        TeamInf t = teamInf.findTeamName(u.getTeamId());
+        List<Lab> a = lab.findAll(t.getAccess());
+        return a;
     }
 
     public List<Content> findQues(long input) {

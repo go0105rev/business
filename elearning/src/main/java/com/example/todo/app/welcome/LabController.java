@@ -48,13 +48,13 @@ public class LabController {
 
     /**
      * ジャンル一覧。
-     * @param session
      * @param model
+     * @param session
      * @return
      */
     @GetMapping(value = "/")
-    public String labs(Model model) {
-        List<Lab> result = service.findTittle();
+    public String labs(Model model, LabSession session) {
+        List<Lab> result = service.findTittle(session.getUserId());
         model.addAttribute("output", result);
         model.addAttribute("scope", true);
         return "labMenu";

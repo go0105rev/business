@@ -48,10 +48,20 @@ public class Lab {
         this.sdate = sdate;
     }
 
+    /**
+     * スコープのアクセス権限。
+     * 
+     * @return 0:計画中、1:開始、2:終了（公開）、3:終了（非公開）
+     */
     public long getAcessFlg() {
         return acessFlg;
     }
 
+    /**
+     * スコープのアクセス権限。
+     * 
+     * @param acessFlg 0:計画中、1:開始、2:終了（公開）、3:終了（非公開）
+     */
     public void setAcessFlg(long acessFlg) {
         this.acessFlg = acessFlg;
     }

@@ -55,10 +55,20 @@ public class TeamInf {
         this.eDate = eDate;
     }
 
+    /**
+     * アクセス可能なスコープ群。
+     * 
+     * @return null:全オープン、0:公開可能のみオープン
+     */
     public String getAccess() {
         return access;
     }
 
+    /**
+     * アクセス可能なスコープ群。
+     * 
+     * @param access null:全オープン、0:公開可能のみオープン
+     */
     public void setAccess(String access) {
         this.access = access;
     }

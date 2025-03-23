@@ -38,14 +38,11 @@ public class RecordController {
     }
 
     @GetMapping(value = "/")
-    public String recodes(Model model) {
-        List<Lab> result = service.findTittle();
-//        model.addAttribute("output", result);
+    public String recodes(Model model,RecordSession session) {
+        List<Lab> result = service.findTittle(session.getUserId());
         model.addAttribute("scope", true);
-        RecordSession session = new RecordSession();
         session.setLab(result);
         model.addAttribute(session);
-        
 
         return "recordMenu";
     }

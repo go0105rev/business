@@ -9,6 +9,13 @@
             *
         FROM
             lab
+        <if test='access != null'>
+        WHERE
+            acess_flg in (1,2)
+            <if test='access != 0'>
+            AND scope in (${access})
+            </if>
+        </if>
         ORDER BY
             scope ASC
     </select>

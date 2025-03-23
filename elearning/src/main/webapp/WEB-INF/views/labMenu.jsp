@@ -67,7 +67,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="${pageContext.request.contextPath}/codeLearn/lab/">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/codeLearn/lab/?userId=${account.userId}">
                             <i class="nc-icon nc-atom"></i>
                             開発LAB
                         </a>

@@ -7,8 +7,8 @@ import com.example.todo.domain.model.Lab;
 public class RecordSession {
 
     private String teamId;
-    
     private List<Lab> labInf;
+    private String userId;
 
     public String getTeamId() {
         return teamId;
@@ -32,5 +32,11 @@ public class RecordSession {
         
     }
     
-    
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }

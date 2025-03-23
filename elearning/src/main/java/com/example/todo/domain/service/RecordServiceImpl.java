@@ -40,8 +40,10 @@ public class RecordServiceImpl {
     @Inject
     TeamInfRepository teamInf;
 
-    public List<Lab> findTittle() {
-        List<Lab> a = lab.findAll();
+    public List<Lab> findTittle(String userId) {
+        UserInf u = userInf.findUser(userId);
+        TeamInf t = teamInf.findTeamName(u.getTeamId());
+        List<Lab> a = lab.findAll(t.getAccess());
         return a;
     }
 
@@ -96,7 +98,7 @@ public class RecordServiceImpl {
 
     private boolean isAuth(TeamInf t, long scope) {
 
-        if (t.getAccess().equals("0")) {
+        if (t.getAccess()==null || t.getAccess().equals("0")) {
             return true;
         }
         for (String a : t.getAccess().split(",")) {
