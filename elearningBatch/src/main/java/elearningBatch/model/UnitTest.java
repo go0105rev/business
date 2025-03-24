@@ -13,6 +13,7 @@ public class UnitTest {
     private String strsavetime;
     private Double size;
     private Double duration;
+    private Double memory;
     private Long score;
     private InputStream source;
 
@@ -206,6 +207,15 @@ public class UnitTest {
      */
     public void setDuration(Double duration) {
         this.duration = duration;
+    }
+
+    
+    public Double getMemory() {
+        return memory;
+    }
+
+    public void setMemory(Double memory) {
+        this.memory = memory;
     }
 
     /**

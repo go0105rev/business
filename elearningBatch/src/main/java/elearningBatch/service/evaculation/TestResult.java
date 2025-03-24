@@ -9,6 +9,8 @@ public class TestResult extends TestTemplate {
     String others;
 
     long exeMillSecond;
+    
+    long exeMem;
 
     int exeScore;
 
@@ -50,6 +52,15 @@ public class TestResult extends TestTemplate {
         this.exeMillSecond = exeMillSecond;
     }
 
+    
+    public long getExeMem() {
+        return exeMem;
+    }
+
+    public void setExeMem(long exeMem) {
+        this.exeMem = exeMem;
+    }
+
     public int getExeScore() {
         return exeScore;
     }
@@ -68,8 +79,9 @@ public class TestResult extends TestTemplate {
 
     @Override
     public String toString() {
-        return "TestOutput [sourceId=" + sourceId + ", exeValue=" + exeValue
-                + ", exeMillSecond=" + exeMillSecond + ", exeScore=" + exeScore
+        return "TestResult [sourceId=" + sourceId + ", exeValue=" + exeValue
+                + ", others=" + others + ", exeMillSecond=" + exeMillSecond
+                + ", exeMem=" + exeMem + ", exeScore=" + exeScore
                 + ", toString()=" + super.toString() + "]";
     }
 

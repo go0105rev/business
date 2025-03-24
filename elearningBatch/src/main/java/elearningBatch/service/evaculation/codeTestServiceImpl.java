@@ -66,8 +66,9 @@ public class codeTestServiceImpl extends Tasklets {
                     long sMem = total-Runtime.getRuntime().freeMemory();
                     Process process = execute(new ProcessBuilder(cmd), i);
                     long eMem = total-Runtime.getRuntime().freeMemory();
-                    long exeMem=(eMem-sMem)/ 1024;
+                    i.setExeMem((eMem-sMem)/ 1024);
                     unitTest(target, i, process);
+                    
                 }
                 evaculate(target, csv);
 
@@ -180,6 +181,7 @@ public class codeTestServiceImpl extends Tasklets {
         double sumSec = io.stream().mapToLong(t -> t.getExeMillSecond())
                 .average().getAsDouble();
 
+
         UnitTest e = new UnitTest();
         if (total == standard) {
             double aveTime = sumSec / io.size();
@@ -187,6 +189,9 @@ public class codeTestServiceImpl extends Tasklets {
                 total += total;
             }
             e.setScore(Long.valueOf(total));
+            double sumMem = io.stream().mapToLong(t -> t.getExeMem())
+                    .average().getAsDouble();
+            e.setMemory(sumMem / io.size());
             e.setDuration(aveTime);
             e.setStatus((short) 1);
 

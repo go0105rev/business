@@ -55,6 +55,7 @@
         SET
             score = #{entity.score},
             duration = #{entity.duration},
+            memory = #{entity.memory},
             status = #{entity.status}
         WHERE
             source_id = #{sourceId}
