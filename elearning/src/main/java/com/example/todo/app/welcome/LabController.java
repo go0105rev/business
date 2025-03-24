@@ -93,7 +93,7 @@ public class LabController {
 
         Content result = service.findDetail(session.getQuesNum());
         if (result != null) {
-            model.addAttribute("content", result.getDetail());
+            model.addAttribute("content", result);
             model.addAttribute("rule", Arrays.asList(result.getRule().split(
                     ",")));
         } else {

@@ -34,6 +34,10 @@
             ques_name,
             detail,
             rule,
+            input,
+            output,
+            input1,
+            output1,
             sdate
         FROM
             content

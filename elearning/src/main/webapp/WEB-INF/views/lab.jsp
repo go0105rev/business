@@ -145,13 +145,17 @@
                 <div class="container-fluid">
                     <h3>${labSession.quesNum}：${labSession.quesName}</h3>
                     <h4>問題</h4>
-                        <div class="subtexts">${content}</div>
+                        <div class="subtexts">${content.detail}</div>
                     <h4>制約（ルール）</h4>
                         <c:forEach items="${rule}" var="r"><ul><li>${r}</li></ul></c:forEach>
+                    <h4>入力</h4>
+                        <div class="subtexts">${content.input}</div>
+                    <h4>出力</h4>
+                        <div class="subtexts">${content.output}</div>
                     <h4>入力例</h4>
-                        <div class="subtexts">XXXXXXXXX</div>
+                        <div class="subtexts">${content.input1}</div>
                     <h4>出力例</h4>
-                        <div class="subtexts">YYYYYYYYYY</div>
+                        <div class="subtexts">${content.output1}</div>
                     <div class="UnitTest">
                         <t:messagesPanel/>
                         <form:form

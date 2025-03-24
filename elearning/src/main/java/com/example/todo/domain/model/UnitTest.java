@@ -25,6 +25,8 @@ public class UnitTest {
 
     private byte[] source;
 
+    private double memory;
+
     public String getSourceId() {
         return sourceId;
     }
@@ -87,6 +89,14 @@ public class UnitTest {
 
     public void setDuration(double duration) {
         this.duration = duration;
+    }
+    
+    public Double getMemory() {
+        return memory;
+    }
+
+    public void setMemory(Double memory) {
+        this.memory = memory;
     }
 
     public long getScore() {
