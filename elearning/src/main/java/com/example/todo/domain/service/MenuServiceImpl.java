@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.todo.domain.model.UnitTest;
 import com.example.todo.domain.repository.QuesRepository;
 import com.example.todo.domain.repository.UnitTestRepository;
+import com.example.todo.domain.repository.UserInfRepository;
 
 @Service
 public class MenuServiceImpl {
@@ -19,6 +20,9 @@ public class MenuServiceImpl {
     
     @Inject
     QuesRepository content;
+    
+    @Inject
+    UserInfRepository userInf;
 
     public List<UnitTest> findAll() {
         return repository.findAll();
@@ -27,6 +31,7 @@ public class MenuServiceImpl {
     public UnitTestOutput findSource(String quesNum, String sourceId) {
 
         UnitTest v = repository.findSource(sourceId);
+        
 
         UnitTestOutput result = new UnitTestOutput();
         String a = IOUtils.toString(v.getSource(), "UTF-8");
@@ -36,6 +41,7 @@ public class MenuServiceImpl {
         result.setDuration((long) v.getDuration());
         result.setSize((long) v.getSize());
         result.setQuesNum(quesNum);
+        result.setUserName(userInf.findUser(v.getUserId()).getUserName());
         String name = content.findDetail(quesNum).getQuesName();
         result.setQuesName(name);
 

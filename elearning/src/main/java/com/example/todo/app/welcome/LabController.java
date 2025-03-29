@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import jakarta.inject.Inject;
-import jakarta.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -120,14 +119,14 @@ public class LabController {
      * @return
      */
     @PostMapping("/commit")
-    public String sourceCommit(@Valid LabMapper input, BindingResult validInput,
+    public String sourceCommit(LabMapper input, BindingResult validInput,
             Model model, LabSession session,RedirectAttributes attribute) {
 
-        if (validInput.hasErrors()) {
-            return "redirect:/codeLearn/lab/scope/ques";
-        } else {
-            ;
-        }
+//        if (validInput.hasErrors()) {
+//            return "redirect:/codeLearn/lab/scope/ques";
+//        } else {
+//            ;
+//        }
 
         try {
             service.execute(input,session.getQuesNum(),session.getUserId());

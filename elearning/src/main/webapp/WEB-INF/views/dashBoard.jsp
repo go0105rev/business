@@ -183,11 +183,12 @@
                                 <div class="card-body ">
                                     <table border="1">
                                         試験結果（0:評価中。1:クリア。2:一部クリア。9:エラー（コンパイルエラー含め）。）
-                                        <tr><th>お題ID</th><th>ID</th><th>スコア</th><th>サイズ</th><th>実行時間</th><th>試験結果</th><th>更新日付</th></tr>
+                                        <tr><th>お題ID</th><th>ユーザー</th><th>ID</th><th>スコア</th><th>サイズ</th><th>実行時間</th><th>試験結果</th><th>更新日付</th></tr>
                                         <c:if test="${cnt > 0}">
                                             <c:forEach items="${output}" var="units">
                                                 <tr>
                                                     <td>${f:h(units.quesNum)}</td>
+                                                    <td>${f:h(units.userId)}</td>
                                                     <td><a href="${pageContext.request.contextPath}/codeLearn/menu/detail?quesNum=${f:h(units.quesNum)}&sourceId=${f:h(units.sourceId)}">${f:h(units.sourceId)}</a></td>
                                                     <td>${f:h(units.score)} 点</td>
                                                     <td>${f:h(units.size)} byte</td>

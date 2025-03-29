@@ -7,6 +7,7 @@
     <select id="findAll" resultType="com.example.todo.domain.model.UnitTest">
         SELECT
             ques_num,
+            user_id,
             source_id,
             status,
             strsavetime,
@@ -73,6 +74,7 @@
     <select id="findSource" resultType="com.example.todo.domain.model.UnitTest">
         SELECT
             source,
+            user_id,
             status,
             size,
             duration,
