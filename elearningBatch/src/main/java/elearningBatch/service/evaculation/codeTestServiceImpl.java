@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -46,9 +47,17 @@ public class codeTestServiceImpl extends Tasklets {
             List<String> editClass = new ArrayList<>();
             editClass.add("javac");
             editClass.add(path + "Main.java");
-            execute(new ProcessBuilder(editClass));
+            if(!new File(path + "Main.class").exists()) {
+                execute(new ProcessBuilder(editClass));
+            };
 
             try {
+            
+                if(!new File(path + "Main.class").exists()) {
+                    logger.error(target+" [commend]"+Arrays.toString(editClass.toArray()));
+                    throw new IllegalStateException();
+                };
+
                 List<String> cmd = new ArrayList<>();
                 cmd.add("java");
                 cmd.add("-cp");
@@ -77,19 +86,20 @@ public class codeTestServiceImpl extends Tasklets {
                 entity.setStatus((short) 9);
                 repository.updateAsQues(entity, target);
                 if (e instanceof IllegalArgumentException) {
-                    logger.error("[targetFile Error]" + target, e);
+                    logger.error("[targetFile Error]" + target+"[path]"+path, e);
                     return;
                 } else {
-                    logger.error("[System Error]" + target, e);
+                    logger.error("[System Error]" + target+"[path]"+path, e);
                     throw new IllegalStateException();
                 }
 
             } finally {
-                 File dir = new File(path);
-                 for(File f : dir.listFiles()){
-                 f.delete();
-                 }
-                 dir.delete();
+//                 File dir = new File(path);
+//                 logger.info("file delete"+path);
+//                 for(File f : dir.listFiles()){
+//                 f.delete();
+//                 }
+//                 dir.delete();
             }
 
             logger.debug(target + "end");
@@ -112,7 +122,7 @@ public class codeTestServiceImpl extends Tasklets {
             List<TestResult> result = new ArrayList<>();
             String sbr;
             while ((sbr = br.readLine()) != null) {
-                String[] s = sbr.split(",");
+                String[] s = sbr.split("\\|");
                 TestResult e = new TestResult(s[0], Integer.parseInt(
                         s[1]), s[2], s[3], Integer.parseInt(s[4]));
                 result.add(e);
@@ -123,9 +133,6 @@ public class codeTestServiceImpl extends Tasklets {
 
     private TestResult unitTest(String target, TestResult input,
             Process process) throws IOException {
-
-        long miliSec = process.info().totalCpuDuration().get().get(
-                ChronoUnit.NANOS) / 1000000;
         
         int exit = process.exitValue();
         if (exit != 0) {
@@ -139,13 +146,20 @@ public class codeTestServiceImpl extends Tasklets {
                     sb.append(es);
                 }
 
-                logger.error("statusCd[" + exit + "] sec [" + miliSec + "s]"
-                        + sb.toString());
+                logger.error("statusCd[" + exit + "]" + sb.toString());
             }
 
             throw new IllegalArgumentException();
 
         } else {
+            long miliSec =0;
+//            TODO 暫定処置
+            try {
+            miliSec = process.info().totalCpuDuration().get().get(
+                    ChronoUnit.NANOS) / 1000000;
+            }catch (Exception e) {
+                ;
+            }
             input.setExeMillSecond(miliSec);
             try (InputStream is = process.getInputStream();) {
                 // TODO 最終行の改行文字のみ削りたい。
@@ -240,7 +254,7 @@ public class codeTestServiceImpl extends Tasklets {
         try {
 
             Process process = builder.start();
-            process.waitFor(1000, TimeUnit.MILLISECONDS);
+            process.waitFor(3000, TimeUnit.MILLISECONDS);
             return process;
 
         } catch (IOException | InterruptedException e) {
