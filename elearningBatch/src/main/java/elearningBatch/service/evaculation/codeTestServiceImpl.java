@@ -167,14 +167,16 @@ public class codeTestServiceImpl extends Tasklets {
                         .replaceAll("\\r\\n|\\r|\\n", ""));
 
                 boolean ans;
+                String res="";
                 if (input.getExeValue().equals(input.getExpectvalue())) {
                     input.setExeScore(input.getScore());
                     ans = true;
                 } else {
                     input.setExeScore(0);
                     ans = false;
+                    res=input.getExeValue()+":"+input.getExpectvalue();
                 }
-                logger.info(target + ": test001 [" + ans + "]");
+                logger.info(target + ": test001 [" + ans + "]"+res);
             }
         }
 
