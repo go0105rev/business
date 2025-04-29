@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.example.todo.app.mapper.LabMapper;
 import com.example.todo.app.mapper.RecordMapper;
 import com.example.todo.app.mapper.RecordSession;
 import com.example.todo.domain.model.Lab;
+import com.example.todo.domain.service.MenuServiceImpl;
 import com.example.todo.domain.service.RecordOutput;
 import com.example.todo.domain.service.RecordServiceImpl;
+import com.example.todo.domain.service.UnitTestOutput;
 
 @Controller
 @RequestMapping(value = "codeLearn/record")
@@ -25,6 +26,9 @@ public class RecordController {
 
     @Inject
     RecordServiceImpl service;
+    
+    @Inject
+    MenuServiceImpl menu;
 
     @ModelAttribute
     public RecordMapper setForm() {
@@ -49,7 +53,7 @@ public class RecordController {
 
     @GetMapping(value = "/scope")
     public String recodeQues(RecordMapper input,Model model,RecordSession session) {
-        List<RecordOutput> result = service.findAllRecord(input.getScope(),session.getTeamId());
+        List<RecordOutput> result = service.findByScope(input.getScope());
         model.addAttribute("scope", false);
         model.addAttribute("size", result.size());
         model.addAttribute("output", result);
@@ -58,9 +62,10 @@ public class RecordController {
     }
 
     @GetMapping(value = "/detail")
-    public String toDetail(LabMapper input, Model model) {
-        service.findDetail();
-        return "detail";
+    public String toDetail(RecordMapper input, Model model) {
+        UnitTestOutput unitTest = menu.findSource(input.getQuesNum(), input.getSourceId());
+        model.addAttribute("output", unitTest);
+        return "labDetail";
     }
 
     @GetMapping(value = "/back")

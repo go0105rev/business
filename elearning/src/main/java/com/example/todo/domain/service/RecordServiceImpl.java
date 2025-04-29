@@ -2,11 +2,9 @@ package com.example.todo.domain.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,50 +45,34 @@ public class RecordServiceImpl {
         return a;
     }
 
-    public List<RecordOutput> findAllRecord(long scope, String teamId) {
+    public List<RecordOutput> findByScope(long scope) {
 
-        List<Content> quesIds = ques.findQues(scope);
-        List<TeamInf> ts = teamInf.findAll();
-        List<TeamInf> tss = ts.stream().filter(t -> isAuth(t, scope)).collect(
-                Collectors.toList());
+        List<RecordOutput> result = new ArrayList<RecordOutput>();;
 
-        List<RecordOutput> result = new ArrayList<RecordOutput>();
-        tss.forEach(t -> {
-
-            RecordOutput ou = new RecordOutput();
-            ou.setUnitTest(new ArrayList<>());
-            ou.setTeamName(teamInf.findTeamName(t.getTeamId()).getTeamName());
-            ou.setTeamId(t.getTeamId());
-            ou.setOwn(t.getTeamId().equals(teamId) ? true : false);
-
-            List<UnitTest> a = unitTest.findBestByTeam(quesIds, t.getTeamId(),scope);
-            a.forEach(e -> {
+        List<Content> a = ques.findContents(scope);
+        a.forEach(aa->{
+            List<UnitTestOutput> bList = new ArrayList<UnitTestOutput>();
+            List<UnitTest> b = unitTest.findByNum(aa.getQuesNum());
+            b.forEach(bb->{
                 UnitTestOutput target = new UnitTestOutput();
-                target.setQuesNum(e.getQuesNum());
-                target.setScore(e.getScore());
-                target.setStatus(getStrStatus(e.getStatus()));
-                target.setSize((long)e.getSize());
-                target.setDuration((long)e.getDuration());
-                Content c = ques.findDetail(e.getQuesNum());
-                target.setQuesName(c.getQuesName());
-
-                if(StringUtils.isNotEmpty(e.getSourceId())) {
-                    target.setSourceId(e.getSourceId());
-                    UserInf u = userInf.findUser(e.getUserId());
-                    target.setUserName(u.getUserName());
-                }
-                
-                ou.getUnitTest().add(target);
-
+                target.setQuesNum(bb.getQuesNum());
+                String userName=userInf.findUser(bb.getUserId()).getUserName();
+                target.setUserName(userName);
+                target.setSourceId(bb.getSourceId());
+                target.setScore(bb.getScore());
+                target.setStatus(getStrStatus(bb.getStatus()));
+                target.setSize((long)bb.getSize());
+                target.setDuration((long)bb.getDuration());
+                bList.add(target);
             });
 
-            ou.setTeamScore(ou.getUnitTest().stream().mapToLong(s -> s.getScore()).sum());
-            ou.setClear(ou.getUnitTest().stream().filter(s->s.getStatus().equals("1")).count());
-            ou.setError(ou.getUnitTest().stream().filter(s->s.getStatus().equals("9")).count());
-            ou.setWait(ou.getUnitTest().stream().filter(s->s.getStatus().equals("0")).count());
-            ou.setWarn(ou.getUnitTest().stream().filter(s->s.getStatus().equals("2")).count());
-            result.add(ou);
-
+            RecordOutput menu = new RecordOutput();
+            Content c = ques.findDetail(aa.getQuesNum());
+            menu.setQuesName(c.getQuesName());
+            menu.setQuesNum(aa.getQuesNum());
+            menu.setCnt(bList.size());
+            menu.setUnitTest(bList);
+            result.add(menu);
         });
 
         return result;
@@ -108,10 +90,6 @@ public class RecordServiceImpl {
         }
         return false;
 
-    }
-
-    public RecordOutput findDetail() {
-        return new RecordOutput();
     }
 
     private String getStrStatus(long status) {

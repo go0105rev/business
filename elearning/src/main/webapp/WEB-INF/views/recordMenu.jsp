@@ -125,35 +125,29 @@
                         </c:forEach>
                         <c:choose>
                             <c:when test="${scope}">
-                                <h3>LABを選び、各チームの状況を確認しましょう～</h3>
+                                <h3>LABを選び、開発詳細の状況を確認しましょう～</h3>
                             </c:when>
                             <c:otherwise>
+                                ※試験結果が異常の場合、コンパイルエラーの可能性が大。<br/>
+                                ※試験結果が一部クリアの場合、ロジックミスの可能性が大。<br/><br/>
                                 <c:forEach items="${output}" var="records">
-                                        <h3>${f:h(records.teamId)}：${f:h(records.teamName)}</h3>
-                                    <div class="container-fluid">
-                                        <div class="subtexts">スコア　　：${f:h(records.teamScore)} 点</div>
-                                        <div class="subtextBlue">評価中　　：${f:h(records.wait)} 件</div>
-                                        <div class="subtextGreen">クリア　　：${f:h(records.clear)} 件</div>
-                                        <div class="subtextBrond">部分クリア：${f:h(records.warn)} 件</div>
-                                        <div class="subtextRed">エラー　　：${f:h(records.error)} 件</div>
-                                    </div>
-                                    <div class="container-fluid">
-                                        <table align="center" border="5">
-                                            <tr><th>お題</th><th>プレイヤー</th><th>試験結果</th><th>スコア</th><th>サイズ</th><th>実行時間</th></tr>
-                                            <c:if test="${size > 0}">
-                                            <c:forEach items="${records.unitTest}" var="r">
-                                                <tr>
-                                                <td>${f:h(r.quesName)}</td>
-                                                <td>${f:h(r.userName)}</td>
-                                                <td>${f:h(r.status)}</td>
-                                                <td>${f:h(r.score)} 点</td>
-                                                <td>${f:h(r.size)} byte</td>
-                                                <td>${f:h(r.duration)} ms</td>
-                                                </tr>
-                                            </c:forEach>
-                                            </c:if>
+                                    <c:if test="${f:h(records.cnt) > 0}">
+                                        <li type="square">${f:h(records.quesName)}</li>
+                                        <table border="1">
+                                        <tr><th>ユーザー</th><th>ID</th><th>スコア</th><th>サイズ</th><th>実行時間</th><th>試験結果</th></tr>
+                                        <c:forEach items="${records.unitTest}" var="units">
+                                            <tr>
+                                                <td>${f:h(units.userName)}</td>
+                                                <td><a href="${pageContext.request.contextPath}/codeLearn/record/detail?quesNum=${f:h(records.quesNum)}&sourceId=${f:h(units.sourceId)}">${f:h(units.sourceId)}</a></td>
+                                                <td>${f:h(units.score)} 点</td>
+                                                <td>${f:h(units.size)} byte</td>
+                                                <td>${f:h(units.duration)} ms</td>
+                                                <td>${f:h(units.status)}</td>
+                                            </tr>
+                                        </c:forEach>
                                         </table>
-                                    </div>
+                                        </br>
+                                    </c:if>
                                 </c:forEach>
                             </c:otherwise>
                         </c:choose>
