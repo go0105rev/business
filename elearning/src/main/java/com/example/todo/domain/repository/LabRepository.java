@@ -10,5 +10,5 @@ public interface LabRepository {
 
     List<Lab> findAll(@Param("access")String access);
 
-    String findName(long scope);
+    List<Lab> findByScope(@Param("scope")long scope);
 }
