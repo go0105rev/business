@@ -16,4 +16,6 @@ public interface UserInfRepository {
     TeamInf findTeamName(@Param("teamId")String teamId);
 
     void create(UserInf userInf);
+
+    List<String> findAllUserId();
 }

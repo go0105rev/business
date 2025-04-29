@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.example.todo.domain.model.Content;
 import com.example.todo.domain.model.UnitTest;
+import com.example.todo.domain.service.RankOutput;
 
 public interface UnitTestRepository {
 
@@ -24,5 +25,9 @@ public interface UnitTestRepository {
     UnitTest findSource(@Param("sourceId")String sourceId);
 
     List<UnitTest> findBestByTeam(@Param("quesNum")List<Content> quesNum,@Param("teamId")String teamId,@Param("scope") long scope);
+
+    List<UnitTest> findByNum(String quesNum);
+
+    List<RankOutput> findRanksByNum(@Param("quesNum")String quesNum);
 
 }

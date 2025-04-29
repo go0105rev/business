@@ -22,6 +22,23 @@
             user_id ASC
     </select>
 
+    <select id="findByNum" resultType="com.example.todo.domain.model.UnitTest">
+        SELECT
+            source_id,
+            user_id,
+            status,
+            strsavetime,
+            size,
+            duration,
+            score
+        FROM
+            unit_test
+        WHERE
+            ques_num = #{quesNum}
+        ORDER BY
+            savetime DESC
+    </select>
+
     <select id="findBySnum" resultType="com.example.todo.domain.model.UnitTest">
         SELECT
             source_id,
@@ -112,5 +129,25 @@
                 GROUP BY u.ques_num)
             )
             ORDER BY ques_num ASC
+    </select>
+
+    <select id="findRanksByNum" resultType="com.example.todo.domain.service.RankOutput">
+        SELECT
+            ui.user_id,
+            ui.user_name,
+            max(ut.score) as score
+        FROM
+            user_inf ui
+        LEFT JOIN unit_test ut
+        ON ui.user_id=ut.user_id
+        WHERE
+            (ut.ques_num = #{quesNum}
+            OR  ut.ques_num IS NULL)
+            AND ui.team_id='G0001'
+        GROUP BY
+            ui.user_id,
+            ut.ques_num
+        ORDER BY
+            score DESC
     </select>
 </mapper>

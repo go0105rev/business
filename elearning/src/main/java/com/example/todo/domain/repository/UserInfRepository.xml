@@ -11,6 +11,13 @@
             user_inf
     </select>
     
+    <select id="findAllUserId" resultType="string">
+        SELECT
+            user_id
+        FROM
+            user_inf
+    </select>
+    
     <select id="findUser" resultType="com.example.todo.domain.model.UserInf">
         SELECT
             *
