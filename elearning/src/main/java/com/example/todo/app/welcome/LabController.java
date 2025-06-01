@@ -94,7 +94,7 @@ public class LabController {
         if (result != null) {
             model.addAttribute("content", result);
             model.addAttribute("rule", Arrays.asList(result.getRule().split(
-                    ",")));
+                    "｜")));
         } else {
             throw new IllegalArgumentException();
         }
