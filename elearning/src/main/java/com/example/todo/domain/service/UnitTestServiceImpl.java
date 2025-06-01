@@ -58,8 +58,8 @@ public class UnitTestServiceImpl {
         return ques.findContents(input);
     }
 
-    public Content findDetail(String a) {
-        return ques.findDetail(a);
+    public Content findDetail(String quesNum) {
+        return ques.findDetail(quesNum);
     }
 
     public UnitTest execute(LabMapper input, String quesNum, String userId) {
