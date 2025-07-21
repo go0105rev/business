@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.temporal.ChronoUnit;
@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service;
 import elearningBatch.model.UnitTest;
 import elearningBatch.repository.UnitTestRepository;
 import elearningBatch.service.Tasklets;
-import io.micrometer.core.instrument.util.IOUtils;
 
 @Service
 public class codeTestServiceImpl extends Tasklets {
@@ -73,7 +72,7 @@ public class codeTestServiceImpl extends Tasklets {
                 for (TestResult i : csv) {
                     long total = Runtime.getRuntime().totalMemory();
                     long sMem = total-Runtime.getRuntime().freeMemory();
-                    Process process = execute(new ProcessBuilder(cmd), i);
+                    Process process = execute(new ProcessBuilder(cmd), i.getInput());
                     long eMem = total-Runtime.getRuntime().freeMemory();
                     i.setExeMem((eMem-sMem)/ 1024);
                     unitTest(target, i, process);
@@ -94,6 +93,7 @@ public class codeTestServiceImpl extends Tasklets {
                 }
 
             } finally {
+//                TODO ファイルを削除するか悩んだ
 //                 File dir = new File(path);
 //                 logger.info("file delete"+path);
 //                 for(File f : dir.listFiles()){
@@ -123,14 +123,27 @@ public class codeTestServiceImpl extends Tasklets {
             String sbr;
             while ((sbr = br.readLine()) != null) {
                 String[] s = sbr.split("\\|");
-                TestResult e = new TestResult(s[0], Integer.parseInt(
-                        s[1]), s[2], s[3], Integer.parseInt(s[4]));
+                TestResult e = new TestResult(
+                        s[0],
+                        Integer.parseInt(s[1]),
+                        Arrays.asList(s[2].split(",")),
+                        Arrays.asList(s[3].split(",")),
+                        Integer.parseInt(s[4]));
                 result.add(e);
             }
             return result;
         }
     }
 
+    /**
+     * テスト評価。
+     * 
+     * @param target
+     * @param input
+     * @param process
+     * @return
+     * @throws IOException
+     */
     private TestResult unitTest(String target, TestResult input,
             Process process) throws IOException {
         
@@ -161,22 +174,31 @@ public class codeTestServiceImpl extends Tasklets {
                 ;
             }
             input.setExeMillSecond(miliSec);
-            try (InputStream is = process.getInputStream();) {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream(),StandardCharsets.UTF_8));) {
                 // TODO 最終行の改行文字のみ削りたい。
-                input.setExeValue(IOUtils.toString(is, StandardCharsets.UTF_8)
-                        .replaceAll("\\r\\n|\\r|\\n", ""));
-
-                boolean ans;
-                String res="";
-                if (input.getExeValue().equals(input.getExpectvalue())) {
-                    input.setExeScore(input.getScore());
-                    ans = true;
-                } else {
-                    input.setExeScore(0);
-                    ans = false;
-                    res=input.getExeValue()+":"+input.getExpectvalue();
+                List<String> aLst=new ArrayList<>();
+                String a;
+                while((a = br.readLine())!=null) {
+                    aLst.add(a);
                 }
-                logger.info(target + ": test001 [" + ans + "]"+res);
+                input.setOutput(aLst);
+
+                int idx=0;
+                for(String ass:input.getExpectvalue()){
+
+                    if(ass.equals(input.getOutput().get(idx))) {
+                        input.setExeScore(input.getScore());
+                        idx++;
+                    }else {
+                        input.setExeScore(0);
+                        break;
+                    }
+                };
+
+                if(input.getExeScore()==0) {
+                    logger.debug(target + ": "+input.getNum()+" : " + input.getOutput()+":"+input.getExpectvalue());
+                }
+
             }
         }
 
@@ -185,7 +207,8 @@ public class codeTestServiceImpl extends Tasklets {
     }
 
     /**
-     * テスト評価。
+     * テスト総合評価。
+     * 
      * @param target
      * @param io
      */
@@ -225,18 +248,26 @@ public class codeTestServiceImpl extends Tasklets {
      * @param input
      * @return
      */
-    private Process execute(ProcessBuilder builder, TestTemplate input) {
+    private Process execute(ProcessBuilder builder, List<String> input) {
 
         try {
 
             Process process = builder.start();
             try (OutputStream os = process.getOutputStream();) {
-                byte[] b = input.getInput().getBytes();
-                os.write(b);
+                for(String i:input) {
+                    os.write((i+"\n").getBytes());
+                }
                 os.flush();
             }
             // TODO 時間設定しなくても良さそう
             process.waitFor(1000, TimeUnit.MILLISECONDS);
+            // 子プロセスの出力を読む（標準出力）
+//            try(BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))){
+//                String line;
+//                while ((line = reader.readLine()) != null) {
+//                    System.out.println("子プロセスの出力: " + line);
+//                }
+//            };
 
             return process;
 

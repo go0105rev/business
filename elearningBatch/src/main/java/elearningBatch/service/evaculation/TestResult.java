@@ -1,10 +1,12 @@
 package elearningBatch.service.evaculation;
 
+import java.util.List;
+
 public class TestResult extends TestTemplate {
 
     String sourceId;
 
-    String exeValue;
+    List<String> output;
 
     String others;
 
@@ -14,16 +16,16 @@ public class TestResult extends TestTemplate {
 
     int exeScore;
 
-    public TestResult(String sourceId, String exeValue, int exeMillSecond,
+    public TestResult(String sourceId, List<String> output, int exeMillSecond,
             int exeScore, String others) {
         super();
         this.sourceId = sourceId;
-        this.exeValue = exeValue;
+        this.output = output;
         this.exeMillSecond = exeMillSecond;
         this.exeScore = exeScore;
     }
 
-    public TestResult(String num, int score, String input, String expectvalue,
+    public TestResult(String num, int score, List<String> input, List<String> expectvalue,
             int expectMillSecond) {
         super(num, score, input, expectvalue, expectMillSecond);
     }
@@ -36,12 +38,12 @@ public class TestResult extends TestTemplate {
         this.sourceId = sourceId;
     }
 
-    public String getExeValue() {
-        return exeValue;
+    public List<String> getOutput() {
+        return output;
     }
 
-    public void setExeValue(String exeValue) {
-        this.exeValue = exeValue;
+    public void setOutput(List<String> output) {
+        this.output = output;
     }
 
     public long getExeMillSecond() {
@@ -79,7 +81,7 @@ public class TestResult extends TestTemplate {
 
     @Override
     public String toString() {
-        return "TestResult [sourceId=" + sourceId + ", exeValue=" + exeValue
+        return "TestResult [sourceId=" + sourceId + ", exeValue=" + output
                 + ", others=" + others + ", exeMillSecond=" + exeMillSecond
                 + ", exeMem=" + exeMem + ", exeScore=" + exeScore
                 + ", toString()=" + super.toString() + "]";

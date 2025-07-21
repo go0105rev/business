@@ -1,12 +1,14 @@
 package elearningBatch.service.evaculation;
 
+import java.util.List;
+
 public class TestTemplate {
 
     String num;
 
-    String input;
+    List<String> input;
 
-    String expectvalue;
+    List<String> expectvalue;
 
     int expectMillSecond;
 
@@ -17,7 +19,7 @@ public class TestTemplate {
         super();
     }
 
-    public TestTemplate(String num, int score, String input, String expectvalue,
+    public TestTemplate(String num, int score, List<String> input, List<String> expectvalue,
             int expectMillSecond) {
         super();
         this.num = num;
@@ -35,19 +37,19 @@ public class TestTemplate {
         this.num = num;
     }
 
-    public String getInput() {
+    public List<String> getInput() {
         return input;
     }
 
-    public void setInput(String input) {
+    public void setInput(List<String> input) {
         this.input = input;
     }
 
-    public String getExpectvalue() {
+    public List<String> getExpectvalue() {
         return expectvalue;
     }
 
-    public void setExpectvalue(String expectvalue) {
+    public void setExpectvalue(List<String> expectvalue) {
         this.expectvalue = expectvalue;
     }
 
